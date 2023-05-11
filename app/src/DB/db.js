@@ -438,3 +438,11 @@ export const adminHome = async ()=>{
     console.log(ex)
   }
 }
+
+
+
+export const getPlans = async () => {
+  const url = "http://localhost:8000/api/taskplan/";
+  const { data } = await axios.get(url);
+   return data;
+};

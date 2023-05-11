@@ -2,17 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const people = [
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-    deadline: "25-65-2000",
-    marks: "12",
-    remarks: "adajsd",
-  },
-];
+
 
 const Coordinatorplans = () => {
   const navigate = useNavigate();

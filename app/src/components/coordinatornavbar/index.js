@@ -36,6 +36,7 @@ const navigation = [
   { name: "Dashboard", to: "/coordinatorhome", icon: HomeIcon, current: false },
   { name: "Plans", to: "/coordinatorplan", icon: HomeIcon, current: false },
   { name: "Users", to: "/addperson", icon: UsersIcon, current: false },
+  
 
   {
     name: "Proposal",
@@ -49,6 +50,7 @@ const navigation = [
     icon: CalendarIcon,
     current: false,
   },
+  { name: "PlansGraph", to: "/myPieChart", icon: UsersIcon, current: false },
   { name: "Logout", to: "/", icon: DocumentDuplicateIcon, current: false },
 ];
 

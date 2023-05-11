@@ -37,6 +37,7 @@ import CoordinatorProposals from "../pages/coordinator/coordinatorproposals";
 import AddStudent from "../pages/supervisor/addStudent/addStudent";
 import Studentideas from "../pages/Student/ideas";
 import Addperson from "../pages/coordinator/addperson";
+import MyPieChart from "../pages/coordinator/Graph";
 
 const Approutes = () => {
   return (
@@ -80,6 +81,8 @@ const Approutes = () => {
           <Route path="/coordinatorhome" element={<Coordinatorhome />} />
           <Route path="/coordinatorplan" element={<Coordinatorplans />} />
           <Route path="/addperson" element={<Addperson />} />
+          
+          <Route path="/myPieChart" element={<MyPieChart />} />
 
           <Route path="/taskhistory" element={<Taskhistory />} />
           <Route
