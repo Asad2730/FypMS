@@ -1,13 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-const people = [
-  {
-    Title: "Lindsay Walton",
-    File: "Front-end Developer",
-    Ideaby: "lindsay.walton@example.com",
-  },
-  // More people...
-];
+import { downloadFile } from "../../../DB/db";
+
 const Studentideas = () => {
   const [projectIdeas, setprojectIdeas] = useState([]);
   const getIdeas = async () => {
@@ -20,27 +14,9 @@ const Studentideas = () => {
     getIdeas();
   }, []);
 
-  const handleClick = async (params) => {
-    let extention = params.proposalFile;
-    try {
-      const blob = new Blob([params.proposalFile]);
-
-      // Create a temporary URL for the downloaded file
-      const url = window.URL.createObjectURL(blob);
-
-      // Create a link element to trigger the download
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = extention; // Set the desired file name and extension
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      // Release the temporary URL
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Error downloading file:", error);
-    }
+  const handleClick = async (fileName) => {
+       let res = await downloadFile(fileName);
+       console.log('response',res)
   };
 
   return (
@@ -96,7 +72,7 @@ const Studentideas = () => {
 
                   <td className="relative py-4 space-x-4 text-right text-sm font-medium">
                     <button
-                      onClick={() => handleClick(pideas)}
+                      onClick={() => handleClick(pideas.proposalFile)}
                       className=" bg-green-600 hover:bg-green-500 text-white px-2 py-2 rounded-lg "
                     >
                       Download
