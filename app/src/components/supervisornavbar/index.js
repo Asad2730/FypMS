@@ -2,16 +2,11 @@ import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
-  BellIcon,
-  Cog6ToothIcon,
   HomeIcon,
   UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/20/solid";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { NavLink, Outlet } from "react-router-dom";
 
 const navigation = [
@@ -24,13 +19,9 @@ const navigation = [
   },
   { name: "Proposals", to: "/proposals", icon: HomeIcon, current: false },
   { name: "AddStudent", to: "/addStudent", icon: HomeIcon, current: false },
-  { name: "Logout", to: "/", icon: UsersIcon, current: false },
 ];
 
-const userNavigation = [
-  { name: "Your profile", href: "#" },
-  { name: "Sign out", href: "#" },
-];
+const userNavigation = [{ name: "Sign out", to: "/" }];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -38,6 +29,12 @@ function classNames(...classes) {
 
 export default function SupervisorNavbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const userName =
+    localStorage.getItem("firstname") + " " + localStorage.getItem("lastName");
+
+  const handleclick = () => {
+    localStorage.clear();
+  };
 
   return (
     <>
@@ -202,7 +199,6 @@ export default function SupervisorNavbar() {
                 className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
               >
                 <span className="sr-only">View notifications</span>
-                <BellIcon className="h-6 w-6" aria-hidden="true" />
               </button>
 
               {/* Separator */}
@@ -217,7 +213,7 @@ export default function SupervisorNavbar() {
                   <span className="sr-only">Open user menu</span>
                   <img
                     className="h-8 w-8 rounded-full bg-gray-50"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    src="https://cdn1.iconfinder.com/data/icons/digital-strategy-1/64/manager-business-man-avatar-512.png"
                     alt=""
                   />
                   <span className="hidden lg:flex lg:items-center">
@@ -225,7 +221,7 @@ export default function SupervisorNavbar() {
                       className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                       aria-hidden="true"
                     >
-                      Tom Cook
+                      {userName}
                     </span>
                     <ChevronDownIcon
                       className="ml-2 h-5 w-5 text-gray-400"
@@ -246,15 +242,15 @@ export default function SupervisorNavbar() {
                     {userNavigation.map((item) => (
                       <Menu.Item key={item.name}>
                         {({ active }) => (
-                          <a
-                            href={item.href}
+                          <NavLink
+                            to={item.to}
                             className={classNames(
                               active ? "bg-gray-50" : "",
                               "block px-3 py-1 text-sm leading-6 text-gray-900"
                             )}
                           >
                             {item.name}
-                          </a>
+                          </NavLink>
                         )}
                       </Menu.Item>
                     ))}

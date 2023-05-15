@@ -3,22 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { getProposalsTask } from "../../../DB/db";
 
 const Projectdetails = () => {
-
   const navigate = useNavigate();
-  const [data,setData] = useState([]);
+  const [data, setData] = useState([]);
 
+  useEffect(() => {
+    getTasks();
+    getTasks();
+  }, []);
 
-  useEffect(()=>{
-     getTasks();
-     getTasks()
-  },[])
-
-  const getTasks = async()=>{   
+  const getTasks = async () => {
     let rs = await getProposalsTask();
-    setData(rs)
-    console.log(data,'data')
-
-  }
+    setData(rs);
+    console.log(data, "data");
+  };
 
   return (
     <>
@@ -27,12 +24,8 @@ const Projectdetails = () => {
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
             <h1 className="text-2xl  font-semibold leading-6 text-gray-900">
-              Tasks
+              Project Detail
             </h1>
-            <p className="mt-2 text-sm text-gray-700">
-              A list of all the users in your account including their name,
-              title and role.
-            </p>
           </div>
         </div>
         <div className="mt-8 flow-root">
@@ -83,46 +76,47 @@ const Projectdetails = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  { data.length > 0 ? data.map((person) => (
-                    <tr key={person.ob._id}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                        {person.ob.name}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {person.user.firstName}  {person.user.lastName}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {person.ob.description}
-                      </td>
-                     
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {person.ob.deadline}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {/* {person.marks} */}
-                      </td>
-                      <td className="relative whitespace-nowrap py-4  pr-4 text-right text-sm font-medium sm:pr-0">
-                        <button
-                          onClick={() => { 
-                            localStorage.setItem('Tid',person.ob._id)
-                            navigate("/evaluate")}}
-                          className="text-indigo-600 hover:text-indigo-900"
-                        >
-                          Evaluate
-                        </button>
-                      </td>
-                    </tr>
-                  )):<>
-                  
-                    
-                  </>}
+                  {data.length > 0 ? (
+                    data.map((person) => (
+                      <tr key={person.ob._id}>
+                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                          {person.ob.name}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {person.user.firstName} {person.user.lastName}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {person.ob.description}
+                        </td>
+
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {person.ob.deadline.split("T")[0]}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {/* {person.marks} */}
+                        </td>
+                        <td className="relative whitespace-nowrap py-4  pr-4 text-right text-sm font-medium sm:pr-0">
+                          <button
+                            onClick={() => {
+                              localStorage.setItem("Tid", person.ob._id);
+                              navigate("/evaluate");
+                            }}
+                            className="text-indigo-600 hover:text-indigo-900"
+                          >
+                            Evaluate
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <></>
+                  )}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-      
     </>
   );
 };

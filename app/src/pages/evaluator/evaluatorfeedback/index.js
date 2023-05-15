@@ -1,30 +1,25 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteRemarks, getRemarks } from "../../../DB/db";
 
-
 const Evaluatorfeedback = () => {
   const navigate = useNavigate();
-  
-  const [data,setData] = useState([])
 
-  useEffect(()=>{
-     loadData();
-  },[])
+  const [data, setData] = useState([]);
 
-  const loadData = async()=>{
+  useEffect(() => {
+    loadData();
+  }, []);
 
+  const loadData = async () => {
     let res = await getRemarks();
-    setData(res)
-  }
-  
+    setData(res);
+  };
 
-
-  const delereRecord = async(id)=>{
-
+  const delereRecord = async (id) => {
     await deleteRemarks(id);
-    loadData()
-  }
+    loadData();
+  };
 
   return (
     <>
@@ -81,19 +76,20 @@ const Evaluatorfeedback = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
-                  {data.map((person) => (
+                    {data.map((person) => (
                       <tr key={person.remark._id}>
-                       
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {person.user.firstName}  {person.user.lastName}
+                          {person.user.firstName} {person.user.lastName}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           {person.remark.detail}
                         </td>
+                        <td> </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          <button 
-                            onClick={()=>delereRecord(person.remark._id)}
-                           className="px-3 py-2 bg-red-500 rounded-lg text-white">
+                          <button
+                            onClick={() => delereRecord(person.remark._id)}
+                            className="px-3 py-2 bg-red-500 rounded-lg text-white"
+                          >
                             Delete
                           </button>
                         </td>
@@ -107,6 +103,7 @@ const Evaluatorfeedback = () => {
         </div>
       </div>
     </>
-  );};
+  );
+};
 
 export default Evaluatorfeedback;

@@ -94,7 +94,7 @@ const Taskhistory = () => {
                           {data.taskPlan.file}
                         </td>
                         <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
-                          {data.taskPlan.deadline}
+                          {data.taskPlan.deadline.split("T")[0]}
                         </td>
                         <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
                           {data.taskPlan.type}

@@ -36,7 +36,6 @@ const navigation = [
   { name: "Dashboard", to: "/coordinatorhome", icon: HomeIcon, current: false },
   { name: "Plans", to: "/coordinatorplan", icon: HomeIcon, current: false },
   { name: "Users", to: "/addperson", icon: UsersIcon, current: false },
-  
 
   {
     name: "Proposal",
@@ -51,13 +50,9 @@ const navigation = [
     current: false,
   },
   { name: "PlansGraph", to: "/myPieChart", icon: UsersIcon, current: false },
-  { name: "Logout", to: "/", icon: DocumentDuplicateIcon, current: false },
 ];
 
-const userNavigation = [
-  { name: "Your profile", href: "#" },
-  { name: "Sign out", href: "#" },
-];
+const userNavigation = [{ name: "Sign out", to: "/" }];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -65,6 +60,12 @@ function classNames(...classes) {
 
 export default function Coordinatornavbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const userName =
+    localStorage.getItem("firstname") + " " + localStorage.getItem("lastName");
+
+  const handleclick = () => {
+    localStorage.clear();
+  };
 
   return (
     <>
@@ -226,7 +227,6 @@ export default function Coordinatornavbar() {
                 className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
               >
                 <span className="sr-only">View notifications</span>
-                <BellIcon className="h-6 w-6" aria-hidden="true" />
               </button>
 
               {/* Separator */}
@@ -241,7 +241,7 @@ export default function Coordinatornavbar() {
                   <span className="sr-only">Open user menu</span>
                   <img
                     className="h-8 w-8 rounded-full bg-gray-50"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtSJPlZ4Bxo9oPXe5d222EKcwYuKMRNPeylUBFwksZeYL2p1InERuFmzPImWdrywL7igw&usqp=CAU"
                     alt=""
                   />
                   <span className="hidden lg:flex lg:items-center">
@@ -249,7 +249,7 @@ export default function Coordinatornavbar() {
                       className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                       aria-hidden="true"
                     >
-                      Tom Cook
+                      {userName}
                     </span>
                     <ChevronDownIcon
                       className="ml-2 h-5 w-5 text-gray-400"
@@ -270,15 +270,15 @@ export default function Coordinatornavbar() {
                     {userNavigation.map((item) => (
                       <Menu.Item key={item.name}>
                         {({ active }) => (
-                          <a
-                            href={item.href}
+                          <NavLink
+                            to={item.to}
                             className={classNames(
                               active ? "bg-gray-50" : "",
                               "block px-3 py-1 text-sm leading-6 text-gray-900"
                             )}
                           >
                             {item.name}
-                          </a>
+                          </NavLink>
                         )}
                       </Menu.Item>
                     ))}
