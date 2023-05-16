@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { downloadFile } from "../../../DB/db";
 const people = [
   {
     name: "Lindsay Walton",
@@ -107,7 +108,9 @@ const Plans = () => {
                       )}
                     </td>
                     <td className="relative py-4 space-x-4 text-right text-sm font-medium">
-                      <button className=" bg-green-600 hover:bg-green-500 text-white px-2 py-2 rounded-lg ">
+                      <button 
+                       onClick={()=>downloadFile(plans.taskPlan.file)}
+                       className=" bg-green-600 hover:bg-green-500 text-white px-2 py-2 rounded-lg ">
                         Download
                       </button>
                       <button className=" bg-gray-800 hover:bg-gray-600 text-white px-2 py-2 rounded-lg ">

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getStudentTasks, updateTaskStatus } from "../../../DB/db";
+import { downloadFile, getStudentTasks, updateTaskStatus } from "../../../DB/db";
 import axios from "axios";
 
 const Studentstasks = () => {
@@ -112,7 +112,7 @@ const Studentstasks = () => {
                     <td className="relative py-4 pl-3 text-right text-sm font-medium "></td>
                     <td className="relative py-4 space-x-5 text-right text-sm font-medium">
                       <button
-                        onClick={() => submit(task._id)}
+                        onClick={() => downloadFile(task.taskPlan.file)}
                         className=" bg-green-600 hover:bg-green-500 text-white px-2 py-2 rounded-lg "
                       >
                         Download
