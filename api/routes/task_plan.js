@@ -2,6 +2,7 @@ const router = require("express").Router();
 const taskPlanController=require('../controllers/taskPlanController');
 
 router.get("/",taskPlanController.taskPlan_all);
+router.get('/getAllTaskHistory',taskPlanController.getAllTaskHistory);
 router.get("/:id",taskPlanController.taskPlan_details);
 router.post("/",taskPlanController.taskPlan_add);
 router.delete("/:id",taskPlanController.taskPlan_delete);
@@ -12,4 +13,5 @@ router.post("/update/:id",taskPlanController.changeTaskStatus);
 router.get("/taskHistory/:id",taskPlanController.taskHistory);
 router.get("/getProposalsTask/:id",taskPlanController.getProposalTask);
 router.put("/updateTask/:id",taskPlanController.updateTask);
+
 module.exports = router;

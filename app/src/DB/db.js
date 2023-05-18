@@ -369,6 +369,16 @@ export const getTaskHistory = async (id) => {
   }
 };
 
+
+export const getAllTaskHistory = async()=>{
+  try{
+    let res = await axios.get(`${URL}taskplan/getAllTaskHistory`);
+    return res.data;
+  }catch(ex){
+   console.log(ex)
+  }
+}
+
 export const allRemarks = async (to, detail) => {
   try {
     let res = await axios.get(`${URL}remarks/`);

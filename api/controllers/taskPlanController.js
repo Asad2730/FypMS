@@ -187,6 +187,30 @@ const taskHistory = async (req, res) => {
   }
 };
 
+
+const getAllTaskHistory = async (req, res) => {
+  try {
+   
+    let rs = [];
+    const taskPlans = await TaskPlan.find();
+
+    for (let i = 0; i < taskPlans.length; i++) {
+      let asgto = taskPlans[i]["asgto"];
+
+      let user = await User.findById(asgto);
+      if (user) {
+        let taskPlan = taskPlans[i];
+        let data = { taskPlan, user };
+        rs.push(data);
+        console.log(data);
+      }
+    }
+    res.json(rs);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
+
 const updateTask = async (req, res) => {
   try {
     let { remarks, marks } = req.body;
@@ -213,4 +237,5 @@ module.exports = {
   taskHistory,
   getProposalTask,
   updateTask,
+  getAllTaskHistory
 };
