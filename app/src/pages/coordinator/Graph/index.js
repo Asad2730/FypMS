@@ -1,47 +1,67 @@
-import React, { useEffect, useState } from 'react';
-import { PieChart } from 'react-minimal-pie-chart';
-
+import React, { useEffect, useRef, useState } from 'react';
+import { Chart, registerables } from 'chart.js';
 import { getPlans } from '../../../DB/db';
 
-function MyPieChart() {
+Chart.register(...registerables);
+
+const MyPieChart = () => {
+  const chartRef = useRef(null);
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    const getData = async () => {
+      const res = await getPlans();
+      const ttl = res.length;
+
+      const { completed, uncompleted } = res.reduce(
+        (acc, curr) => {
+          if (curr.taskPlan.status === 'completed') {
+            acc.completed += 1;
+          } else {
+            acc.uncompleted += 1;
+          }
+          return acc;
+        },
+        { completed: 0, uncompleted: 0 }
+      );
+
+      setData([
+        { title: `${((completed / ttl) * 100).toFixed(2)}%`, value: completed, color: '#00ff00' },
+        { title: `${((uncompleted / ttl) * 100).toFixed(2)}%`, value: uncompleted, color: '#FF0000' },
+      ]);
+    };
+
     getData();
   }, []);
 
-  const getData = async () => {
-    const res = await getPlans();
-    const ttl = res.length;
-   
-    const { completed, uncompleted } = res.reduce(
-      (acc, curr) => {
-        if (curr.taskPlan.status === 'completed') {
-          acc.completed += 1;
-        } else {
-          acc.uncompleted += 1;
-        }
-        return acc;
+  useEffect(() => {
+    if (data.length === 0) {
+      return;
+    }
+
+    const ctx = chartRef.current.getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: [`Completed - ${data[0].title}`, `Uncompleted - ${data[1].title}`],
+        datasets: [
+          {
+            label: 'Graph Dataset',
+            data: [data[0].value, data[1].value],
+            backgroundColor: ['#00ff00', '#FF0000'],
+            barPercentage: 0.5,
+          },
+        ],
       },
-      { completed: 0, uncompleted: 0 }
-    );
+    });
 
-    setData([
-      { title: `${(completed/ttl)*100+'%'}`, value: completed, color: '#00ff00' },
-      { title: `${(uncompleted/ttl)*100+'%'}`, value: uncompleted, color: '#FF0000' }
-    ]);
-  };
+    return () => {
+      // Clean up the chart instance when the component unmounts
+      chart.destroy();
+    };
+  }, [data]);
 
-  return (
-    <div className="w-64 h-64">
-     <PieChart
-        data={data}
-        label={({ dataEntry }) => dataEntry.value !== 0 ? `${dataEntry.title}` : ''}
-        animate={true}
-        animationDuration={1000}
-      />
-    </div>
-  );
-}
+  return <canvas ref={chartRef} />;
+};
 
 export default MyPieChart;
