@@ -46,12 +46,13 @@ const Adduser = () => {
           profileImage
         );
       } else {
+       
         response = await addUser(
           firstName,
           lastName,
           email,
           password,
-          role,
+          'Co-ordinator',
           profileImage
         );
       }
@@ -61,7 +62,6 @@ const Adduser = () => {
         setlastName("");
         setEmail("");
         setPassword("");
-   
         setProfileImage("");
       }
     } catch (ex) {

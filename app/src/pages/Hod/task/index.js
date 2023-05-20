@@ -69,12 +69,7 @@ const TaskhistoryHod = () => {
                     >
                       Marks{" "}
                     </th>
-                    <th
-                      scope="col"
-                      className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      Remarks{" "}
-                    </th>
+                 
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
@@ -99,8 +94,10 @@ const TaskhistoryHod = () => {
                         <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
                           {i.taskPlan.type}
                         </td>
-                        <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500"></td>
-                        <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500"></td>
+                        <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
+                        {i.taskPlan.marks}
+                        </td>
+                        
                       </tr>
                     </>
                   ))}
