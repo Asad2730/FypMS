@@ -39,6 +39,7 @@ import Studentideas from "../pages/Student/ideas";
 import Addperson from "../pages/coordinator/addperson";
 import MyPieChart from "../pages/coordinator/Graph";
 import TaskhistoryHod from "../pages/Hod/task";
+import EvaluteformHod from "../pages/Hod/remarks";
 
 const Approutes = () => {
   return (
@@ -52,6 +53,7 @@ const Approutes = () => {
           <Route path="/projectdetail" element={<ProjectDetail />} />
           <Route path="/adduser" element={<Adduser />} />
           <Route path="/taskhistoryHod" element={<TaskhistoryHod/>}/>
+          <Route path="/remarksHod" element={<EvaluteformHod/>} />
         </Route>
         <Route element={<StudentLayout />}>
           <Route path="/studenthome" element={<StudentHome />} />

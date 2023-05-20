@@ -1,18 +1,22 @@
-import React from 'react'
-const transactions = [
-    {
-      id: 'AAPS0L',
-      company: 'Chase & Co.',
-      share: 'CAC',
-      commission: '+$4.37',
-      price: '$3,509.00',
-      quantity: '12.00',
-      netAmount: '$4,397.00',
-      remarks:"goog"
-    },
-    // More transactions...
-  ]
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from "react-router-dom";
+import { getAllTaskHistory } from '../../../DB/db';
+
+
 const ProjectDetail = () => {
+  const navigate = useNavigate();
+   const [data,setData] = useState([])
+
+  useEffect(()=>{
+        load()
+  },[])
+
+  const load = async ()=>{
+    const r = await getAllTaskHistory();
+    setData(r)
+    console.log(r,'r')
+  }
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       
@@ -51,12 +55,7 @@ Description                  </th>
                   >
   Deadline
                   </th>
-                  <th
-                    scope="col"
-                    className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
-          Type
-                  </th>
+           
                   <th
                     scope="col"
                     className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
@@ -73,22 +72,33 @@ Description                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {transactions.map((transaction) => (
-                  <tr key={transaction.id}>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">{transaction.id}</td>
+                {data.map((transaction) => (
+                  <tr key={transaction.taskPlan._id}>
+                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
+                      {transaction.taskPlan.name}
+                      </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {transaction.company}
+                    {transaction.user.firstName}    {transaction.user.lastName}
                     </td>
-                    <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-900">{transaction.share}</td>
-                    <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.commission}</td>
-                    <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.price}</td>
-                    <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.quantity}</td>
-                    <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.netAmount}</td>
-                    <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.remarks}</td>
+                    <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-900">{transaction.taskPlan.description}</td>
+                    <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.taskPlan.file}</td>
+                    <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.taskPlan.deadline}</td>
+                   
+                    <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.taskPlan.marks}</td>
+                    <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.taskPlan.remarks}</td>
 
                     <td className="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                      <button className="text-white bg-gray-800 hover:bg-gray-500 px-2 py-2 rounded-lg ">
-                       Add Remarks<span className="sr-only">, {transaction.id}</span>
+                      <button 
+                       onClick={()=>{
+                        localStorage.setItem('RID',transaction.taskPlan._id)
+                        localStorage.setItem('MARKS',transaction.taskPlan.marks)
+                        navigate('/remarksHod')
+                       }}
+                       className="text-white bg-gray-800 hover:bg-gray-500 px-2 py-2 rounded-lg "
+                        
+                       >
+                       Add Remarks
+                       <span className="sr-only">, {transaction.id}</span>
                       </button>
                     </td>
                   </tr>

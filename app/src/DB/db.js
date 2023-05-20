@@ -322,6 +322,8 @@ export const getRemarks = async () => {
   }
 };
 
+
+
 export const deleteRemarks = async (id) => {
   try {
     let res = await axios.delete(`${URL}remarks/${id}`);
