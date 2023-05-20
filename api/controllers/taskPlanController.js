@@ -1,26 +1,6 @@
 const TaskPlan = require("../models/task_plan");
 const User = require("../models/user");
 
-const taskPlan_all = async (req, res) => {
-  try {
-    let rs = [];
-    const uid = req.params.uid;
-    const taskPlans = await TaskPlan.find();
-
-    for (let i = 0; i < taskPlans.length; i++) {
-      let id = taskPlans[i]["asgby"];
-      let user = await User.findById(id);
-      if (user) {
-        let taskPlan = taskPlans[i];
-        let data = { taskPlan, user };
-        rs.push(data);
-      }
-    }
-    res.json(rs);
-  } catch (error) {
-    res.json({ message: error });
-  }
-};
 
 const taskPlan_details = async (req, res) => {
   try {
@@ -135,18 +115,7 @@ const getProposalTask = async (req, res) => {
   }
 };
 
-const studentTask = async (req, res) => {
-  try {
-    let id = req.params.id;
-    const taskPlan = await TaskPlan.find({
-      asgto: id,
-      status: "pending",
-    });
-    res.json(taskPlan);
-  } catch (error) {
-    res.json({ message: error.message });
-  }
-};
+
 
 const changeTaskStatus = async (req, res) => {
   try {
@@ -228,6 +197,54 @@ const updateTask = async (req, res) => {
       { new: true }
     );
     res.json(taskPlan);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+
+
+const taskPlan_all = async (req, res) => {
+  try {
+    let rs = [];
+    const uid = req.params.uid;
+    const taskPlans = await TaskPlan.find();
+
+    for (let i = 0; i < taskPlans.length; i++) {
+      let id = taskPlans[i]["asgby"];
+      let user = await User.findById(id);
+      if (user) {
+        let taskPlan = taskPlans[i];
+        let data = { taskPlan, user };
+        rs.push(data);
+      }
+    }
+    res.json(rs);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
+
+const studentTask = async (req, res) => {
+  try {
+    let rs = [];
+    let id = req.params.id;
+    const taskPlans = await TaskPlan.find({
+      asgto: id,
+      status: "pending",
+    });
+
+    for (let i = 0; i < taskPlans.length; i++) {
+      let id = taskPlans[i]["asgby"];
+      let user = await User.findById(id);
+      if (user) {
+        let taskPlan = taskPlans[i];
+        let data = { taskPlan, user };
+        rs.push(data);
+      }
+    }
+
+    res.json(rs);
   } catch (error) {
     res.json({ message: error.message });
   }

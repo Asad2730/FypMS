@@ -18,6 +18,7 @@ const navigation = [
     current: false,
   },
   { name: "Proposals", to: "/proposals", icon: HomeIcon, current: false },
+  { name: "Tasks-Submited", to: "/tasksSubmited", icon: HomeIcon, current: false },
   // { name: "AddStudent", to: "/addStudent", icon: HomeIcon, current: false },
 ];
 

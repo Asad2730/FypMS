@@ -8,11 +8,9 @@ export const loginUser = async (email, password) => {
     let response = await axios.post(`${URL}users/login`, json);
     let { _id, role, firstName, lastName } = response.data;
     localStorage.setItem("Id", _id);
+    console.log('_ID',_id)
     localStorage.setItem("firstname", firstName);
-
     localStorage.setItem("lastName", lastName);
-
-    console.log("ok", role);
     return role;
   } catch (ex) {
     console.log("Error:", ex);
@@ -452,4 +450,13 @@ export const planTask = async(uid,planTaskId,proposalFile)=>{
   });
 
   return res.data;
+}
+
+
+
+export const getSubmitedTasks_Plans = async (type)=>{
+  let id = localStorage.getItem('Id');
+  let url = `http://localhost:8000/api/planTask/${id}/${type}`;
+  let { data } = await axios.get(url);
+  return data;
 }

@@ -14,7 +14,7 @@ export default function Login() {
    const login = async() =>{
         try{
           let res =  await loginUser(email,password)
-          console.log(res);
+          
           switch(res){
                
            case 'Co-ordinator':{

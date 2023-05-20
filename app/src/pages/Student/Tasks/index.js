@@ -16,6 +16,7 @@ const Studentstasks = () => {
   const load = async () => {
     let rs = await getStudentTasks();
     setData(rs);
+  
   };
 
   const submit = async (id,proposalFile) => {
@@ -28,14 +29,14 @@ const Studentstasks = () => {
     load();
   };
 
-  const getTasks = async () => {
-    const url = "http://localhost:8000/api/taskplan/";
-    const { data } = await axios.get(url);
-    setstudentTasks(data);
-  };
-  useEffect(() => {
-    getTasks();
-  }, []);
+  // const getTasks = async () => {
+  //   const url = "http://localhost:8000/api/taskplan/";
+  //   const { data } = await axios.get(url);
+  //   setstudentTasks(data);
+  // };
+  // useEffect(() => {
+  //   getTasks();
+  // }, []);
 
   return (
     <>
@@ -97,8 +98,8 @@ const Studentstasks = () => {
               </tr>
             </thead>
             <tbody>
-              {studentTasks.map((task) =>
-                task.taskPlan.type == "task" ? (
+              {data.map((task) =>
+              
                   <tr key={task.taskPlan._id}>
                     <td className="relative py-4 pr-3 text-sm font-medium text-gray-900">
                       {task.taskPlan.name}
@@ -135,9 +136,7 @@ const Studentstasks = () => {
                   />
                     </td>
                   </tr>
-                ) : (
-                  <tr></tr>
-                )
+           
               )}
             </tbody>
           </table>
