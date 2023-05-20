@@ -15,6 +15,7 @@ const Evaluatorhome = () => {
 
    let r = await getEvaluatorProposals();
    setData(r);
+
   }
 
 

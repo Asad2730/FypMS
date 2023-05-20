@@ -213,11 +213,17 @@ const getAllTaskHistory = async (req, res) => {
 
 const updateTask = async (req, res) => {
   try {
+    console.log('ok');
     let { remarks, marks } = req.body;
-    let id = req.params.id;
+    let {id} = req.params;
+
+    console.log(remarks,marks)
+    console.log(id)
+    
     const taskPlan = await TaskPlan.findByIdAndUpdate(
       { _id: id },
-      { remarks: remarks, marks: marks }
+      { remarks: remarks, marks: marks },
+      { new: true }
     );
     res.json(taskPlan);
   } catch (error) {

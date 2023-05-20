@@ -135,9 +135,26 @@ const user_proposals = async (req, res) => {
 
   const getProposals = async (req,res)=>{
     try{
-      let {status} = req.params;
-      const pending = await Proposal.find({'status':status});
-      res.json(pending)
+    
+      let {id,status} = req.params;
+      let rs = [];
+      const pending = await Proposal.find({'status':status,'supervisorId':id});
+      for (let i = 0; i < pending.length; i++) {
+        let stdId1 =  pending[i]['member1'];
+        let stdId2 =  pending[i]['member2'];
+       
+         let std1 = await User.findById(stdId1)
+         let std2 = await User.findById(stdId2) 
+      
+
+        if (std1 && std2) {
+          let proposal = pending[i];
+          let data = { proposal, std1,std2 };
+          rs.push(data);
+           
+        }
+      }
+      res.json(rs)
 
     }catch(ex){
       res.json(ex)

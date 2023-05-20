@@ -17,6 +17,7 @@ const Proposals = () => {
   const loadProposals = async () => {
     let res = await getProposals("pending");
     setData(res);
+   
   };
 
   const download = async (fileName) => await downloadFile(fileName);
@@ -54,24 +55,24 @@ const Proposals = () => {
       >
         {data.map((person) => (
           <li
-            key={person._id}
+            key={person.proposal._id}
             className="col-span-1 divide-y divide-gray-200 rounded-lg bg-gray-200 shadow mt-6"
           >
             <div className="flex w-full items-center justify-between space-x-6 p-6">
               <div className="flex-1 truncate">
                 <div className="flex items-center space-x-3">
                   <h3 className="truncate text-sm font-medium text-gray-900">
-                    {person.member1} & {person.member2}
+                    {person.std1.firstName} {person.std1.lastName} & {person.std2.firstName} {person.std2.lastName}
                   </h3>
                 </div>
                 <p className="mt-1 truncate text-sm text-gray-500">
-                  {person.title}
+                  {person.proposal.title}
                 </p>
               </div>
               <a
                 href="#"
                 class="text-blue-500 underline"
-                onClick={() => download(person.proposalFile)}
+                onClick={() => download(person.proposal.proposalFile)}
               >
                 Download File
               </a>
@@ -80,7 +81,7 @@ const Proposals = () => {
               <div className="-mt-px flex divide-x divide-gray-200">
                 <div className="flex w-0 flex-1">
                   <button
-                    onClick={() => accept_reject(person._id, "accept")}
+                    onClick={() => accept_reject(person.proposal._id, "accept")}
                     className="bg-green-500 hover:bg-green-400 relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
                   >
                     Accept
@@ -88,7 +89,7 @@ const Proposals = () => {
                 </div>
                 <div className="-ml-px flex w-0 flex-1">
                   <button
-                    onClick={() => accept_reject(person._id, "reject")}
+                    onClick={() => accept_reject(person.proposal._id, "reject")}
                     className="bg-red-600 hover:bg-red-500 text-white relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold "
                   >
                     Reject

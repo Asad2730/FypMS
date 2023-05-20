@@ -39,8 +39,9 @@ export const addUser = async (
     let response = await axios.post(`${URL}users/`, data, {
       headers: { "Content-Type": "multipart/form-data" },
     });
-
-    return response.data;
+   console.log('response',response.data);
+   console.log('response',data);
+  //   return response.data;
   } catch (ex) {
     console.log("Error:", ex);
   }
@@ -165,7 +166,9 @@ export const downloadFile = async (fileName) => {
 
 export const getProposals = async (status) => {
   try {
-    const response = await axios.get(`${URL}proposal/getProposals/${status}`);
+    let id  = localStorage.getItem('Id');
+    console.log(`${id}`);
+    const response = await axios.get(`${URL}proposal/getProposals/${status}/${id}`);
     return response.data;
   } catch (ex) {
     console.log("Error:", ex);
@@ -391,6 +394,7 @@ export const allRemarks = async (to, detail) => {
 export const getEvaluatorProposals = async () => {
   try {
     let uid = localStorage.getItem("Id");
+    console.log(uid)
     let r = await axios.get(`${URL}proposal/getEvaluator/${uid}`);
     return r.data;
   } catch (ex) {
@@ -411,7 +415,8 @@ export const getProposalsTask = async () => {
 export const updateTask = async (id, marks, remarks) => {
   try {
     let ob = { marks: marks, remarks: remarks };
-    let res = await axios.put(`${URL}taskplan/updateTask/${id}}`, ob);
+    let res = await axios.put(`${URL}taskplan/updateTask/${id}`, ob);
+    console.log(res.data)
     return res.data;
   } catch (ex) {
     console.log("rs", ex);

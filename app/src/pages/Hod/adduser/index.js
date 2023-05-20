@@ -12,7 +12,8 @@ const Adduser = () => {
   const [lastName, setlastName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [role, setRole] = useState();
+  // const [role, setRole] = useState();
+  const role = 'Co-ordinator';
   const [profileImage, setProfileImage] = useState();
 
   useEffect(() => {
@@ -28,7 +29,6 @@ const Adduser = () => {
     setlastName(data.lastName);
     setEmail(data.email);
     setPassword(data.password);
-    setRole(data.role);
     setProfileImage(data.profileImage);
   };
 
@@ -42,7 +42,7 @@ const Adduser = () => {
           lastName,
           email,
           password,
-          role,
+          'Co-ordinator',
           profileImage
         );
       } else {
@@ -55,13 +55,13 @@ const Adduser = () => {
           profileImage
         );
       }
-
+  
       if (response) {
         setFirstName("");
         setlastName("");
         setEmail("");
         setPassword("");
-        setRole("");
+   
         setProfileImage("");
       }
     } catch (ex) {
@@ -169,7 +169,7 @@ const Adduser = () => {
               </div>
             </div>
 
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            {/* <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
                 htmlFor="email"
                 className="block text-sm font-medium leading-6 text-gray-900"
@@ -199,10 +199,10 @@ const Adduser = () => {
                         {notificationMethod.title}
                       </label>
                     </div>
-                  ))}
+                  ))} 
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="mt-3 flex items-center justify-center gap-x-6">
