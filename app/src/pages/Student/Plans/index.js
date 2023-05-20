@@ -1,16 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { downloadFile } from "../../../DB/db";
-const people = [
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-    remarks: "remarks",
-  },
-  // More people...
-];
+import { downloadFile,planTask } from "../../../DB/db";
+
 const Plans = () => {
   const [getPlans, setgetPlans] = useState([]);
   const getmyPlans = async () => {
@@ -22,6 +13,16 @@ const Plans = () => {
   useEffect(() => {
     getmyPlans();
   }, []);
+
+
+  
+  const submit = async (id,proposalFile) => {
+    const uid = localStorage.getItem('Id');
+    const planTaskId = id;
+    let pl = await planTask(uid,planTaskId,proposalFile);
+    console.log('pl',pl)
+   
+  };
 
   return (
     <>
@@ -113,9 +114,14 @@ const Plans = () => {
                        className=" bg-green-600 hover:bg-green-500 text-white px-2 py-2 rounded-lg ">
                         Download
                       </button>
-                      <button className=" bg-gray-800 hover:bg-gray-600 text-white px-2 py-2 rounded-lg ">
-                        Submit
-                      </button>
+                      <input
+                    type="file"
+                    name="Submit"           
+                    className=" bg-green-800 hover:bg-gray-600 text-white px-2 py-2 rounded-lg "
+                    onChange={(e) => {                  
+                      submit(plans.taskPlan._id,e.target.files[0])
+                    }}
+                  />
                     </td>
                   </tr>
                 ) : (

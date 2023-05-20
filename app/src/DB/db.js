@@ -439,3 +439,17 @@ export const getPlans = async () => {
   const { data } = await axios.get(url);
   return data;
 };
+
+export const planTask = async(uid,planTaskId,proposalFile)=>{
+  
+  const url = "http://localhost:8000/api/planTask/";
+  let data = new FormData();
+  data.append("uid", uid);
+  data.append("proposalFile", proposalFile);
+  data.append("planTaskId", planTaskId);
+  let res = await axios.post(`${URL}planTask/`, data, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+
+  return res.data;
+}

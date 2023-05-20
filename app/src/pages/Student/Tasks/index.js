@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { downloadFile, getStudentTasks, updateTaskStatus } from "../../../DB/db";
+import { downloadFile, getStudentTasks, planTask, updateTaskStatus } from "../../../DB/db";
 import axios from "axios";
 
 const Studentstasks = () => {
   const [studentTasks, setstudentTasks] = useState([]);
   const [data, setData] = useState([]);
+  
+  // const [proposalFile,setProposalFile] = useState();
+  
 
   useEffect(() => {
     load();
@@ -15,10 +18,13 @@ const Studentstasks = () => {
     setData(rs);
   };
 
-  const submit = async (id) => {
+  const submit = async (id,proposalFile) => {
     console.log("id", id);
+    const uid = localStorage.getItem('Id');
+    const planTaskId = id;
     let rs = await updateTaskStatus(id, "completed");
-    console.log(rs);
+    let pl = await planTask(uid,planTaskId,proposalFile);
+    console.log('pl',pl)
     load();
   };
 
@@ -117,12 +123,16 @@ const Studentstasks = () => {
                       >
                         Download
                       </button>
-                      <button
-                        onClick={() => submit(task._id)}
-                        className=" bg-gray-800 hover:bg-gray-600 text-white px-2 py-2 rounded-lg "
-                      >
-                        Submit
-                      </button>
+
+                      <input
+                    type="file"
+                    name="Submit"           
+                    className=" bg-green-800 hover:bg-gray-600 text-white px-2 py-2 rounded-lg "
+                    onChange={(e) => {
+                     // setProposalFile(e.target.files[0])
+                      submit(task.taskPlan._id,e.target.files[0])
+                    }}
+                  />
                     </td>
                   </tr>
                 ) : (

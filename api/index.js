@@ -19,6 +19,8 @@ const remarksRoutes=require("./routes/remarks");
 const proposalRoutes=require('./routes/proposal'); 
 const ideaRoutes=require('./routes/idea'); 
 
+const planTask=require('./routes/plan_Task'); 
+
 //connection String
 dotenv.config();
 const uri = 'mongodb+srv://abubakar80187:404Urbanloop@cluster0.6vwfolu.mongodb.net/?retryWrites=true&w=majority'; // Replace with your own URI
@@ -48,6 +50,8 @@ app.use('/api/taskplan',taskPlanRoutes)
 app.use('/api/remarks',remarksRoutes)
 app.use('/api/proposal',proposalRoutes)
 app.use('/api/idea',ideaRoutes)
+app.use('/api/planTask',planTask)
+
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 
