@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { addTask } from "../../../DB/db";
 
 
 
@@ -13,14 +14,9 @@ const Coordinatorplans = () => {
   const [Date, setDate] = useState("");
 
   const addPlan = async () => {
-    const url = "http://localhost:8000/api/taskplan/";
-    const { data } = await axios.post(url, {
-      name: Name,
-      description: Description,
-      file: File,
-      date: Date,
-    });
-    console.log(data);
+   let asgto = '-1'
+   let data  = await addTask(Name,asgto,Description,Date,File,'');
+  getPlans()
   };
 
   const getPlans = async () => {

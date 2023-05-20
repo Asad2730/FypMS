@@ -12,8 +12,7 @@ const Taskhistory = () => {
     console.log(taskId);
     let rs = await getAllTaskHistory();
     console.log("🚀 ~ file: index.js:19 ~ load ~ rs:", rs);
-    setData(rs);
-    
+    setData(rs);  
   };
 
   return (
@@ -99,8 +98,12 @@ const Taskhistory = () => {
                         <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
                           {i.taskPlan.type}
                         </td>
-                        <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500"></td>
-                        <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500"></td>
+                        <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
+                        {i.taskPlan.marks}
+                        </td>
+                        <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
+                        {i.taskPlan.remarks}
+                        </td>
                       </tr>
                     </>
                   ))}

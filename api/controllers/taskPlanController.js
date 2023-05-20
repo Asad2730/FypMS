@@ -193,17 +193,19 @@ const getAllTaskHistory = async (req, res) => {
    
     let rs = [];
     const taskPlans = await TaskPlan.find();
-
+  
     for (let i = 0; i < taskPlans.length; i++) {
       let asgto = taskPlans[i]["asgto"];
+       if(asgto !== '-1'){
+        let user = await User.findById(asgto);
+        if (user) {
+          let taskPlan = taskPlans[i];
+          let data = { taskPlan, user };
+          rs.push(data);
+         // console.log(data);
+        }
+       }
 
-      let user = await User.findById(asgto);
-      if (user) {
-        let taskPlan = taskPlans[i];
-        let data = { taskPlan, user };
-        rs.push(data);
-        console.log(data);
-      }
     }
     res.json(rs);
   } catch (error) {

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { addUser, getSingleUser, updateUser } from "../../../DB/db";
 import { Navigate, useNavigate } from "react-router-dom";
+
+
+
 const notificationMethods = [
   { id: "Supervisor", title: "Supervisor" },
   { id: "Student", title: "Student" },
@@ -18,12 +21,12 @@ const Addpersons = () => {
   const [lastName, setlastName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [role, setRole] = useState();
+  const [role, setRole] = useState('Evaluator');
   const [profileImage, setProfileImage] = useState();
 
-  useEffect(() => {
-    if (id !== "-1") {
-      setUser();
+  useEffect(() => {   
+    if (id === "-1") {
+      setUser();    
     }
   }, []);
 
@@ -41,7 +44,8 @@ const Addpersons = () => {
   const submit = async () => {
     try {
       let response;
-      if (id !== "-1") {
+      if (id === "-1") {
+       
         response = await updateUser(
           id,
           firstName,
@@ -52,14 +56,16 @@ const Addpersons = () => {
           profileImage
         );
       } else {
-        response = await addUser(
-          firstName,
-          lastName,
-          email,
-          password,
-          role,
-          profileImage
-        );
+
+         console.log(role,'role')
+         response = await addUser(
+         firstName,
+           lastName,
+           email,
+           password,
+           role,
+           profileImage
+       );
       }
 
       if (response) {
@@ -183,30 +189,23 @@ const Addpersons = () => {
                 Role
               </label>
               <div className="mt-2">
-                <div className="space-y-4  sm:flex sm:items-center sm:space-x-1 sm:space-y-0">
-                  {notificationMethods.map((notificationMethod) => (
-                    <div
-                      key={notificationMethod.id}
-                      className="flex justify-between items-center "
-                    >
-                      <input
-                        checked
-                        id={notificationMethod.id}
-                        name="notification-method"
-                        type="radio"
-                        onChange={(e) => setRole(notificationMethod.title)}
-                        defaultChecked={notificationMethod.id === "email"}
-                        className="h-4 w-4 ml-2 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                      />
-                      <label
-                        htmlFor={notificationMethod.id}
-                        className="ml-3 block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        {notificationMethod.title}
-                      </label>
-                    </div>
-                  ))}
-                </div>
+                <div className="space-y-4 sm:flex sm:items-center sm:space-x-1 sm:space-y-0">
+  {notificationMethods.map((notificationMethod) => (
+    <div key={notificationMethod.id} className="flex justify-between items-center">
+      <input
+        checked={role === notificationMethod.title} // Update checked attribute based on selected value
+        name="notification-method"
+        type="radio"
+        onChange={(e) => setRole(notificationMethod.title)}
+        className="h-4 w-4 ml-2 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+      />
+      <label className="ml-3 block text-sm font-medium leading-6 text-gray-900">
+        {notificationMethod.title}
+      </label>
+    </div>
+  ))}
+</div>
+
               </div>
             </div>
           </div>
