@@ -42,6 +42,7 @@ import TaskhistoryHod from "../pages/Hod/task";
 import EvaluteformHod from "../pages/Hod/remarks";
 import SubmittedTasks from "../pages/supervisor/submittedTasks";
 import AcceptedIdeas from "../pages/supervisor/acceptedIdes";
+import PlanHistory from "../pages/coordinator/planHistory";
 
 const Approutes = () => {
   return (
@@ -93,6 +94,7 @@ const Approutes = () => {
           <Route path="/myPieChart" element={<MyPieChart />} />
 
           <Route path="/taskhistory" element={<Taskhistory />} />
+          <Route path="/planHistory" element={<PlanHistory />} />
           <Route
             path="/coordinatorfeedback"
             element={<Coordinatorfeedback />}

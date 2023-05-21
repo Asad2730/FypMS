@@ -37,6 +37,7 @@ const navigation = [
   { name: "Plans", to: "/coordinatorplan", icon: HomeIcon, current: false },
   { name: "Users", to: "/addperson", icon: UsersIcon, current: false },
   { name: "Task-History", to: "/taskhistory", icon: UsersIcon, current: false },
+  { name: "Plan-History", to: "/planHistory", icon: UsersIcon, current: false },
 
   {
     name: "Proposal",

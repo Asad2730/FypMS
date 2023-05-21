@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const taskPlanController=require('../controllers/taskPlanController');
 
+
+router.get("/get/:uid",taskPlanController.taskPlans);
 router.get("/:uid",taskPlanController.taskPlan_all);
 router.get('/getAllTaskHistory',taskPlanController.getAllTaskHistory);
 router.get("/:id",taskPlanController.taskPlan_details);

@@ -225,6 +225,30 @@ const taskPlan_all = async (req, res) => {
   }
 };
 
+
+const taskPlans = async (req, res) => {
+  try {
+    let rs = [];
+    const uid = req.params.uid;
+    const taskPlans = await TaskPlan.find({asgto:uid});
+
+    for (let i = 0; i < taskPlans.length; i++) {
+      let id = taskPlans[i]["asgby"];
+      let user = await User.findById(id);
+      if (user) {
+        let taskPlan = taskPlans[i];
+        let data = { taskPlan, user };
+        rs.push(data);
+      }
+    }
+
+    console.log(rs)
+    res.json(rs);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
+
 const studentTask = async (req, res) => {
   try {
     let rs = [];
@@ -262,5 +286,6 @@ module.exports = {
   taskHistory,
   getProposalTask,
   updateTask,
-  getAllTaskHistory
+  getAllTaskHistory,
+  taskPlans
 };

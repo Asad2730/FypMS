@@ -3,13 +3,16 @@ import React, { useEffect, useState } from "react";
 import { downloadFile,planTask } from "../../../DB/db";
 
 const Plans = () => {
+  
   const [getPlans, setgetPlans] = useState([]);
   const getmyPlans = async () => {
-    const url = "http://localhost:8000/api/taskplan/";
+    const url = `http://localhost:8000/api/taskplan/get/${localStorage.getItem('Id')}`;
     const { data } = await axios.get(url);
     console.log("🚀 ~ file: index.js:17 ~ getmyPlans ~ data:", data);
     setgetPlans(data);
   };
+
+
   useEffect(() => {
     getmyPlans();
   }, []);
@@ -82,7 +85,7 @@ const Plans = () => {
             </thead>
             <tbody>
               {getPlans.map((plans) =>
-                plans.taskPlan.type == "plan" ? (
+            
                   <tr key={plans.taskPlan._id}>
                     <td className="relative py-4 pr-3 text-sm font-medium text-gray-900">
                       {plans.taskPlan.name}
@@ -99,7 +102,7 @@ const Plans = () => {
                       {plans.taskPlan.deadline.split("T")[0]}
                     </td>
                     <td className="px-3 py-4 text-sm text-gray-500"></td>
-                    <td className="relative py-4 pl-3 text-right text-sm font-medium">
+                    {/* <td className="relative py-4 pl-3 text-right text-sm font-medium">
                       {plans.taskPlan.status != "completed" ? (
                         <button className=" bg-blue-600 hover:bg-blue-500 text-white px-2 py-2 rounded-lg ">
                           Apply
@@ -107,7 +110,7 @@ const Plans = () => {
                       ) : (
                         <div></div>
                       )}
-                    </td>
+                    </td> */}
                     <td className="relative py-4 space-x-4 text-right text-sm font-medium">
                       <button 
                        onClick={()=>downloadFile(plans.taskPlan.file)}
@@ -124,10 +127,8 @@ const Plans = () => {
                   />
                     </td>
                   </tr>
-                ) : (
-                  <tr></tr>
                 )
-              )}
+              }
             </tbody>
           </table>
         </div>

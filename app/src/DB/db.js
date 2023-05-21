@@ -464,6 +464,14 @@ export const getSubmitedTasks_Plans = async (type)=>{
 }
 
 
+export const plansSubited = async ()=>{
+  let id = localStorage.getItem('Id');
+  let url = `http://localhost:8000/api/planTask/${id}}`;
+  let { data } = await axios.get(url);
+  return data;
+}
+
+
 export const submitIdea = async(id)=>{
   let sid = localStorage.getItem('Id');
   let url = `${URL}idea/`;

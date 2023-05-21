@@ -1,6 +1,7 @@
 const PlansTask = require("../models/PlansTask");
 const TaskPlan = require('../models/task_plan');
 const User = require('../models/user');
+const Idea = require('../models/idea');
 
 
 const add = async (req, res) =>{
@@ -56,8 +57,10 @@ const get = async (req, res) =>{
       if(asgby === id){  
         let uid = task['asgto'];
         let user = await User.findById(uid);
-        let obj = {ob1:plan[i],ob2:task,ob3:user}
-        rs.push(obj)
+       
+          let obj = {ob1:plan[i],ob2:task,ob3:user}
+          rs.push(obj)
+       
       }
     }
 
@@ -70,7 +73,13 @@ const get = async (req, res) =>{
 
 }
 
+
+
+
+
+
 module.exports = {
     add,
     get,
+   
 }
