@@ -14,7 +14,9 @@ const ideaSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-   
+    sid: {
+      type: String,    
+    },
   },
   {
     timestamps: true,

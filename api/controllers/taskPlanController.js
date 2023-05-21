@@ -208,7 +208,7 @@ const taskPlan_all = async (req, res) => {
   try {
     let rs = [];
     const uid = req.params.uid;
-    const taskPlans = await TaskPlan.find();
+    const taskPlans = await TaskPlan.find({asgby:uid});
 
     for (let i = 0; i < taskPlans.length; i++) {
       let id = taskPlans[i]["asgby"];

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { downloadFile } from "../../../DB/db";
+import { downloadFile, submitIdea } from "../../../DB/db";
 
 const Studentideas = () => {
   const [projectIdeas, setprojectIdeas] = useState([]);
@@ -18,6 +18,13 @@ const Studentideas = () => {
        let res = await downloadFile(fileName);
        console.log('response',res)
   };
+
+
+  const Submit = async(id)=>{
+    let res = await submitIdea(id);
+    console.log(res,'res')
+    getIdeas();
+  }
 
   return (
     <>
@@ -77,7 +84,9 @@ const Studentideas = () => {
                     >
                       Download
                     </button>
-                    <button className=" bg-gray-800 hover:bg-gray-600 text-white px-2 py-2 rounded-lg ">
+                    <button className=" bg-gray-800 hover:bg-gray-600 text-white px-2 py-2 rounded-lg "
+                      onClick={()=>Submit(pideas._id)}
+                    >
                       Submit
                     </button>
                   </td>

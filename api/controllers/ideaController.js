@@ -1,5 +1,5 @@
 const Idea = require("../models/idea");
-
+const User = require('../models/user');
 
  const add = async (req, res) =>{
    
@@ -34,19 +34,61 @@ const Idea = require("../models/idea");
 
 }
 
+const getIdeas = async (req, res) => {
+  try {
+    const pending = await Idea.find({
+      $or: [
+        { sid: { $exists: false } }, // Find documents where the `sid` field does not exist
+        { sid: null } // Find documents where the `sid` field is null
+      ]
+    });
+
+    res.json(pending);
+  } catch (ex) {
+    res.json(ex);
+  }
+}
 
 
-  const getIdeas = async (req,res)=>{
+
+  const submitIdea = async(req,res)=>{
     try{
-      const pending = await Idea.find();
-      res.json(pending)
+      
+      let {id,sid} = req.body;
+      const idea = await Idea.findByIdAndUpdate(id,{sid:sid});
+      res.json(idea);
     }catch(ex){
-      res.json(ex)
+      res.json(ex);
     }
   }
+
+
+  const getAcceptedIdeas = async (req, res) => {
+    try {
+      const { uid } = req.params;
+      const rs = [];
+      const ideas = await Idea.find({ uid: uid });
+     
+      for (let i = 0; i < ideas.length; i++) {
+        const sid = ideas[i].sid; 
+        const user = await User.findById(sid);
+        if (user) {
+          const obj = { 'ob1': ideas[i], 'ob2': user };
+          rs.push(obj);
+        }
+      }
+  
+      res.json(rs);
+    } catch (ex) {
+      res.json(ex);
+    }
+  }
+  
 
 
 module.exports = {
     add,
     getIdeas,
+    submitIdea,
+    getAcceptedIdeas,
 }

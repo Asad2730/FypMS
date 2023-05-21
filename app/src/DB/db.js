@@ -355,7 +355,9 @@ export const updateTaskStatus = async (id, status) => {
 
 export const getAllTaskCordinator = async () => {
   try {
-    let res = await axios.get(`${URL}taskplan`);
+
+    let uid = localStorage.getItem('Id');
+    let res = await axios.get(`${URL}taskplan/${uid}`);
     return res.data;
   } catch (ex) {
     console.log(ex);
@@ -458,5 +460,21 @@ export const getSubmitedTasks_Plans = async (type)=>{
   let id = localStorage.getItem('Id');
   let url = `http://localhost:8000/api/planTask/${id}/${type}`;
   let { data } = await axios.get(url);
+  return data;
+}
+
+
+export const submitIdea = async(id)=>{
+  let sid = localStorage.getItem('Id');
+  let url = `${URL}idea/`;
+  let body={id,sid};
+  let {data} = await  axios.put(url,body);
+  return data;
+}
+
+export const acceptedIdeas = async(id)=>{
+  let uid = localStorage.getItem('Id');
+  let url = `${URL}idea/${uid}`;
+  let {data} = await  axios.get(url);
   return data;
 }
