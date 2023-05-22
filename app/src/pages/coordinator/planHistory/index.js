@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getSubmitedTasks_Plans } from "../../../DB/db";
+import { downloadFile, getSubmitedPlans } from "../../../DB/db";
 
 const PlanHistory = () => {
   const [data, setData] = useState([]);
@@ -9,8 +9,9 @@ const PlanHistory = () => {
   }, []);
 
   const loadData = async () => {
-    let res = await getSubmitedTasks_Plans('plans');
+    let res = await getSubmitedPlans();
     setData(res);
+    console.log(res,'res');
   };
 
 
@@ -77,24 +78,28 @@ const PlanHistory = () => {
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {data.map((person) => (
-                    <tr key={person.ob1._id}>
+                    <tr key={person.taskPlan._id}>
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                        {person.ob2.name}
+                        {person.taskPlan.name}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {person.ob3.firstName} {person.ob3.lastName}
+                        {person.user.firstName} {person.user.lastName}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {person.ob2.description}
+                        {person.taskPlan.description}
+                      </td>
+                      <td 
+                        onClick={async()=>await downloadFile(person.taskPlan.file)}
+                       className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {person.taskPlan.file}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {person.ob2.file}
+                        {person.taskPlan.deadline}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {person.ob2.deadline}
-                      </td>
-                      <td className="relative whitespace-nowrap py-4  text-right text-sm font-medium sm:pr-0">
-                      {person.ob1.proposalFile}
+                      <td 
+                       onClick={async()=>await downloadFile(person.taskPlan.solFile)}
+                       className="relative whitespace-nowrap py-4  text-right text-sm font-medium sm:pr-0">
+                      {person.taskPlan.solFile}
                       </td>
                       <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
                        

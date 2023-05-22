@@ -21,11 +21,10 @@ const Studentstasks = () => {
 
   const submit = async (id,proposalFile) => {
     console.log("id", id);
-    const uid = localStorage.getItem('Id');
-    const planTaskId = id;
-    let rs = await updateTaskStatus(id, "completed");
-    let pl = await planTask(uid,planTaskId,proposalFile);
-    console.log('pl',pl)
+    // const uid = localStorage.getItem('Id');
+    // const planTaskId = id;
+     await updateTaskStatus(id, "completed",proposalFile);
+    // await planTask(uid,planTaskId,proposalFile);
     load();
   };
 

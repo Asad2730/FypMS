@@ -46,7 +46,7 @@ const taskPlan_add = async (req, res) => {
     asgby: req.body.asgby,
     description: req.body.description,
     file: sampleFile.name,
-    status: "pending",
+    status: "pending",//accept
     proposalId: req.body.proposalId,
     deadline: Date(req.body.deadline),
     // type: req.body.type,
@@ -119,12 +119,29 @@ const getProposalTask = async (req, res) => {
 
 const changeTaskStatus = async (req, res) => {
   try {
+    
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).send('No files were uploaded.');
+    }
+   
+    let sampleFile = req.files.solFile;
+  
+    await sampleFile.mv('./uploads/' + sampleFile.name, function(err) {
+      if (err) {
+        return res.status(500).send(err);
+      }
+    });
+
     const { id } = req.params;
     const { status } = req.body;
 
     const updatedtaskPlan = await TaskPlan.findByIdAndUpdate(
       { _id: id },
-      { status: status }
+      { status: status ,
+        solFile:sampleFile.name     
+        },
+        { new: true },
+
     );
     res.json(updatedtaskPlan);
   } catch (error) {
@@ -160,9 +177,9 @@ const taskHistory = async (req, res) => {
 const getAllTaskHistory = async (req, res) => {
   try {
    
+    console.log('ok');
     let rs = [];
     const taskPlans = await TaskPlan.find();
-  
     for (let i = 0; i < taskPlans.length; i++) {
       let asgto = taskPlans[i]["asgto"];
        if(asgto !== '-1'){
@@ -171,7 +188,7 @@ const getAllTaskHistory = async (req, res) => {
           let taskPlan = taskPlans[i];
           let data = { taskPlan, user };
           rs.push(data);
-         // console.log(data);
+          console.log(data);
         }
        }
 
@@ -231,7 +248,7 @@ const taskPlans = async (req, res) => {
     let rs = [];
     const uid = req.params.uid;
     const taskPlans = await TaskPlan.find({asgto:uid});
-
+    
     for (let i = 0; i < taskPlans.length; i++) {
       let id = taskPlans[i]["asgby"];
       let user = await User.findById(id);
@@ -242,7 +259,7 @@ const taskPlans = async (req, res) => {
       }
     }
 
-    console.log(rs)
+   // console.log(rs)
     res.json(rs);
   } catch (error) {
     res.json({ message: error });
@@ -251,19 +268,21 @@ const taskPlans = async (req, res) => {
 
 const studentTask = async (req, res) => {
   try {
+   
     let rs = [];
     let id = req.params.id;
     const taskPlans = await TaskPlan.find({
       asgto: id,
       status: "pending",
     });
-
+  
     for (let i = 0; i < taskPlans.length; i++) {
       let id = taskPlans[i]["asgby"];
       let user = await User.findById(id);
       if (user) {
         let taskPlan = taskPlans[i];
         let data = { taskPlan, user };
+        console.log('data',data)
         rs.push(data);
       }
     }
@@ -273,6 +292,114 @@ const studentTask = async (req, res) => {
     res.json({ message: error.message });
   }
 };
+
+
+
+const getPlans = async (req, res) => {
+  try {
+    const taskPlans = await TaskPlan.find({
+      $or: [
+        {asgto:'-1'},
+        { planUId: null },
+        { planUId: { $exists: false } }
+      ]
+    });
+    res.json(taskPlans);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
+
+
+
+
+
+const submitedTasks = async (req, res) => {
+  try {
+    let rs = [];
+    const uid = req.params.uid;
+    const taskPlans = await TaskPlan.find({asgby:uid});
+    
+    for (let i = 0; i < taskPlans.length; i++) {
+      let id = taskPlans[i]["asgto"];
+      if(id !== '-1'){
+        let user = await User.findById(id);
+        if (user) {
+          let taskPlan = taskPlans[i];
+          let data = { taskPlan, user };
+          rs.push(data);
+        }
+      }
+     
+    }
+
+   // console.log(rs)
+    res.json(rs);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
+
+
+const changePlanStatus = async (req, res) => {
+  try {
+    
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).send('No files were uploaded.');
+    }
+   
+    let sampleFile = req.files.solFile;
+  
+    await sampleFile.mv('./uploads/' + sampleFile.name, function(err) {
+      if (err) {
+        return res.status(500).send(err);
+      }
+    });
+
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const updatedtaskPlan = await TaskPlan.findByIdAndUpdate(
+      { _id: id },
+      { status: status ,
+        solFile:sampleFile.name,
+        planUid:req.body.planUid,     
+        },
+        { new: true },
+
+    );
+    res.json(updatedtaskPlan);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+
+
+const submitedPlans = async (req, res) => {
+  try {
+    let rs = [];
+    const uid = req.params.uid;
+    const taskPlans = await TaskPlan.find({asgby:uid,asgto:'-1'});
+    
+    for (let i = 0; i < taskPlans.length; i++) {
+      let id = taskPlans[i]["planUid"];    
+        let user = await User.findById(id);
+        if (user) {
+          let taskPlan = taskPlans[i];
+          let data = { taskPlan, user };
+          rs.push(data);
+      
+      }
+     
+    }
+    res.json(rs);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
+
+
 
 module.exports = {
   taskPlan_all,
@@ -287,5 +414,9 @@ module.exports = {
   getProposalTask,
   updateTask,
   getAllTaskHistory,
-  taskPlans
+  taskPlans,
+  submitedTasks,
+  getPlans,
+  changePlanStatus,
+  submitedPlans
 };

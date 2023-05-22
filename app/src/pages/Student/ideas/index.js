@@ -20,9 +20,10 @@ const Studentideas = () => {
   };
 
 
-  const Submit = async(id)=>{
-    let res = await submitIdea(id);
-    console.log(res,'res')
+  const submit = async(id,file)=>{
+   
+    let res = await submitIdea(id,file);
+   
     getIdeas();
   }
 
@@ -84,11 +85,15 @@ const Studentideas = () => {
                     >
                       Download
                     </button>
-                    <button className=" bg-gray-800 hover:bg-gray-600 text-white px-2 py-2 rounded-lg "
-                      onClick={()=>Submit(pideas._id)}
-                    >
-                      Submit
-                    </button>
+                   
+                    <input
+                    type="file"
+                    name="Submit"           
+                    className=" bg-green-800 hover:bg-gray-600 text-white px-2 py-2 rounded-lg "
+                    onChange={(e) => {                   
+                      submit(pideas._id,e.target.files[0])
+                    }}
+                  />
                   </td>
                 </tr>
               ))}

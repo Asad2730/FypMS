@@ -1,14 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { downloadFile,planTask } from "../../../DB/db";
+import { downloadFile,getAllPlans,planTask ,updatePlanStatus} from "../../../DB/db";
 
 const Plans = () => {
   
   const [getPlans, setgetPlans] = useState([]);
   const getmyPlans = async () => {
-    const url = `http://localhost:8000/api/taskplan/get/${localStorage.getItem('Id')}`;
-    const { data } = await axios.get(url);
-    console.log("🚀 ~ file: index.js:17 ~ getmyPlans ~ data:", data);
+    // const url = `http://localhost:8000/api/taskplan/get/${localStorage.getItem('Id')}`;
+    // const { data } = await axios.get(url);
+    // console.log("🚀 ~ file: index.js:17 ~ getmyPlans ~ data:", data);
+    // setgetPlans(data);
+
+    let data = await getAllPlans();
     setgetPlans(data);
   };
 
@@ -20,11 +23,13 @@ const Plans = () => {
 
   
   const submit = async (id,proposalFile) => {
-    const uid = localStorage.getItem('Id');
-    const planTaskId = id;
-    let pl = await planTask(uid,planTaskId,proposalFile);
-    console.log('pl',pl)
-   
+    // const uid = localStorage.getItem('Id');
+    // const planTaskId = id;
+    // let pl = await planTask(uid,planTaskId,proposalFile);
+   let r =  await updatePlanStatus(id, "completed",proposalFile);
+   console.log(r);
+   getmyPlans();
+    
   };
 
   return (
@@ -86,20 +91,20 @@ const Plans = () => {
             <tbody>
               {getPlans.map((plans) =>
             
-                  <tr key={plans.taskPlan._id}>
+                  <tr key={plans._id}>
                     <td className="relative py-4 pr-3 text-sm font-medium text-gray-900">
-                      {plans.taskPlan.name}
+                      {plans.name}
                       <div className="absolute bottom-0 right-full h-px w-screen bg-gray-100" />
                       <div className="absolute bottom-0 left-0 h-px w-screen bg-gray-100" />
                     </td>
                     <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">
-                      {plans.taskPlan.description}
+                      {plans.description}
                     </td>
                     <td className="hidden px-3 py-4 text-sm text-gray-500 md:table-cell">
-                      {plans.taskPlan.file}
+                      {plans.file}
                     </td>
                     <td className="px-3 py-4 text-sm text-gray-500">
-                      {plans.taskPlan.deadline.split("T")[0]}
+                      {plans.deadline.split("T")[0]}
                     </td>
                     <td className="px-3 py-4 text-sm text-gray-500"></td>
                     {/* <td className="relative py-4 pl-3 text-right text-sm font-medium">
@@ -113,7 +118,7 @@ const Plans = () => {
                     </td> */}
                     <td className="relative py-4 space-x-4 text-right text-sm font-medium">
                       <button 
-                       onClick={()=>downloadFile(plans.taskPlan.file)}
+                       onClick={()=>downloadFile(plans.file)}
                        className=" bg-green-600 hover:bg-green-500 text-white px-2 py-2 rounded-lg ">
                         Download
                       </button>
@@ -122,7 +127,7 @@ const Plans = () => {
                     name="Submit"           
                     className=" bg-green-800 hover:bg-gray-600 text-white px-2 py-2 rounded-lg "
                     onChange={(e) => {                  
-                      submit(plans.taskPlan._id,e.target.files[0])
+                      submit(plans._id,e.target.files[0])
                     }}
                   />
                     </td>

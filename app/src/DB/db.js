@@ -342,16 +342,44 @@ export const getStudentTasks = async () => {
   }
 };
 
-export const updateTaskStatus = async (id, status) => {
+export const updateTaskStatus = async (id, status,file) => {
   try {
-    let res = await axios.post(`${URL}taskplan/update/${id}`, {
-      status: status,
+     
+    
+    let data = new FormData();
+    data.append("solFile", file);
+    data.append("status", status);
+
+
+    let res = await axios.post(`${URL}taskplan/update/${id}`, data, {
+      headers: { "Content-Type": "multipart/form-data" },
     });
     return res.data;
   } catch (ex) {
     console.log(ex);
   }
 };
+
+
+
+export const updatePlanStatus = async (id, status,file) => {
+  try {
+     
+    let planUid = localStorage.getItem('Id');
+    let data = new FormData();
+    data.append("solFile", file);
+    data.append("status", status);
+    data.append('planUid',planUid)
+
+    let res = await axios.post(`${URL}taskplan/updatePlan/${id}`, data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return res.data;
+  } catch (ex) {
+    console.log(ex);
+  }
+};
+
 
 export const getAllTaskCordinator = async () => {
   try {
@@ -376,7 +404,7 @@ export const getTaskHistory = async (id) => {
 
 export const getAllTaskHistory = async()=>{
   try{
-    let res = await axios.get(`${URL}taskplan/getAllTaskHistory`);
+    let res = await axios.get(`${URL}taskplan/`);
     return res.data;
   }catch(ex){
    console.log(ex)
@@ -456,14 +484,22 @@ export const planTask = async(uid,planTaskId,proposalFile)=>{
 
 
 
-export const getSubmitedTasks_Plans = async (type)=>{
-  let id = localStorage.getItem('Id');
-  let url = `http://localhost:8000/api/planTask/${id}/${type}`;
+export const getSubmitedTasks_Plans = async ()=>{
+  let uid = localStorage.getItem('Id');
+  let url = `http://localhost:8000/api/taskplan/submitedTasks/${uid}`;
   let { data } = await axios.get(url);
   return data;
 }
 
 
+export const getSubmitedPlans = async ()=>{
+  let uid = localStorage.getItem('Id');
+  let url = `http://localhost:8000/api/taskplan/submitedPlans/${uid}`;
+  let { data } = await axios.get(url);
+  return data;
+}
+
+//not used
 export const plansSubited = async ()=>{
   let id = localStorage.getItem('Id');
   let url = `http://localhost:8000/api/planTask/${id}}`;
@@ -472,17 +508,30 @@ export const plansSubited = async ()=>{
 }
 
 
-export const submitIdea = async(id)=>{
+export const submitIdea = async(id,file)=>{
   let sid = localStorage.getItem('Id');
   let url = `${URL}idea/`;
-  let body={id,sid};
-  let {data} = await  axios.put(url,body);
-  return data;
+  let data = new FormData();
+  data.append("id", id);
+  data.append("sid", sid);
+  data.append("solFile", file);
+  let res = await  axios.put(url,data, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return res.data;
 }
 
 export const acceptedIdeas = async(id)=>{
   let uid = localStorage.getItem('Id');
   let url = `${URL}idea/${uid}`;
   let {data} = await  axios.get(url);
+  return data;
+}
+
+
+export const getAllPlans = async()=>{
+   
+  const url = "http://localhost:8000/api/taskplan/get/";
+  const { data } = await axios.get(url);
   return data;
 }

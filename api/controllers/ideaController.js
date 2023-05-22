@@ -53,9 +53,26 @@ const getIdeas = async (req, res) => {
 
   const submitIdea = async(req,res)=>{
     try{
-      
+      if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded.');
+      }
+     
+      let sampleFile = req.files.solFile;
+    
+      await sampleFile.mv('./uploads/' + sampleFile.name, function(err) {
+        if (err) {
+          return res.status(500).send(err);
+        }
+      });
       let {id,sid} = req.body;
-      const idea = await Idea.findByIdAndUpdate(id,{sid:sid});
+      const idea = await Idea.findByIdAndUpdate(
+        id,
+        {sid:sid,
+         solFile:sampleFile.name     
+        },
+
+        { new: true },
+        );
       res.json(idea);
     }catch(ex){
       res.json(ex);

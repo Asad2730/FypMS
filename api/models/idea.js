@@ -10,6 +10,9 @@ const ideaSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    solFile: {
+      type: String,
+    },
     uid: {
       type: String,
       required: true,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { acceptedIdeas, getSubmitedTasks_Plans } from "../../../DB/db";
+import { acceptedIdeas, downloadFile, getSubmitedTasks_Plans } from "../../../DB/db";
 
 const AcceptedIdeas = () => {
   const [data, setData] = useState([]);
@@ -11,6 +11,7 @@ const AcceptedIdeas = () => {
   const loadData = async () => {
     let res = await acceptedIdeas();
     setData(res);
+    console.log(res,'res');
   };
 
 
@@ -50,6 +51,13 @@ const AcceptedIdeas = () => {
                     >
                      Idea File
                     </th>
+
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                     Solution File
+                    </th>
                   
                   </tr>
                 </thead>
@@ -63,8 +71,16 @@ const AcceptedIdeas = () => {
                         {person.ob2.firstName} {person.ob2.lastName}
                       </td>
                    
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <td 
+                       onClick={async()=>await downloadFile(person.ob1.proposalFile)}
+                      className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {person.ob1.proposalFile}
+                      </td>
+
+                      <td 
+                        onClick={async()=>await downloadFile(person.ob1.solFile)}
+                       className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {person.ob1.solFile}
                       </td>
                     
                     </tr>

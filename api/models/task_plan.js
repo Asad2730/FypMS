@@ -40,6 +40,12 @@ const taskPlanSchema = new mongoose.Schema(
     },
     proposalId:{
     type:String
+    },
+    solFile:{
+      type:String
+    },
+    planUid:{
+      type:String
     }
   },
   {
