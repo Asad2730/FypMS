@@ -535,3 +535,15 @@ export const getAllPlans = async()=>{
   const { data } = await axios.get(url);
   return data;
 }
+
+
+
+export const getMembersTasks = async (m1,m2) => {
+  try {
+
+    let res = await axios.get(`${URL}taskplan/${m1}/${m2}`);
+    return res.data;
+  } catch (ex) {
+    console.log(ex);
+  }
+};

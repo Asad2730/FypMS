@@ -19,5 +19,6 @@ router.post("/updatePlan/:id",taskPlanController.changePlanStatus);
 router.get("/taskHistory/:id",taskPlanController.taskHistory);
 router.get("/getProposalsTask/:id",taskPlanController.getProposalTask);
 router.put("/updateTask/:id",taskPlanController.updateTask);
+router.get('/:m1/:m2',taskPlanController.getStdentsTasks);
 
 module.exports = router;

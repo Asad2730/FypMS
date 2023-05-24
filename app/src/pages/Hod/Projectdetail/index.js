@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { getAllTaskHistory } from '../../../DB/db';
+import { downloadFile, getMembersTasks } from '../../../DB/db';
 
 
 const ProjectDetail = () => {
   const navigate = useNavigate();
    const [data,setData] = useState([])
+   
+   let m1 = localStorage.getItem('m1Id')
+   let m2 = localStorage.getItem('m2Id')
+
 
   useEffect(()=>{
         load()
   },[])
 
   const load = async ()=>{
-    const r = await getAllTaskHistory();
+    const r = await getMembersTasks(m1,m2)
     setData(r)
-    console.log(r,'r')
   }
 
   return (
@@ -38,6 +41,8 @@ const ProjectDetail = () => {
                   >
                     Assign To
                   </th>
+
+                
                   <th
                     scope="col"
                     className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
@@ -60,7 +65,8 @@ Description                  </th>
                     scope="col"
                     className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                   Marks                  </th>
+                   SolutionFile     
+                  </th>
                    <th
                     scope="col"
                     className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
@@ -81,9 +87,20 @@ Description                  </th>
                     {transaction.user.firstName}    {transaction.user.lastName}
                     </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-900">{transaction.taskPlan.description}</td>
-                    <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.taskPlan.file}</td>
+                    
+                    <button className="text-white bg-gray-800 hover:bg-gray-100 px-2 py-2 rounded-lg "
+                     onClick={async()=>await downloadFile(transaction.taskPlan.file)}
+                    >
+                    {transaction.taskPlan.file}
+                    </button>
                     <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.taskPlan.deadline}</td>
-                   
+                    
+                    <button className="text-white bg-gray-800 hover:bg-gray-100 px-2 py-2 rounded-lg "
+                      onClick={async()=>await downloadFile(transaction.taskPlan.solFile)}
+                    >
+                    {transaction.taskPlan.solFile}
+                    </button>
+                    
                     <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.taskPlan.marks}</td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.taskPlan.remarks}</td>
 

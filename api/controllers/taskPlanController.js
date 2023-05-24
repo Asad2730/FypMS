@@ -401,6 +401,34 @@ const submitedPlans = async (req, res) => {
 
 
 
+const getStdentsTasks = async (req, res) => {
+  try {
+    const { m1, m2 } = req.params;
+    const taskPlans = await TaskPlan.find({
+      $or: [
+        { asgto: m1 },
+        { asgto: m2 }
+      ]
+    }).lean();
+
+    const userIds = taskPlans.map(taskPlan => taskPlan.asgto);
+    const users = await User.find({ _id: { $in: userIds } }).lean();
+
+    const rs = taskPlans.map(taskPlan => {
+      const user = users.find(user => user._id.toString() === taskPlan.asgto.toString());
+      if (user) {
+        return { taskPlan, user };
+      }
+    }).filter(data => data);
+
+    res.json(rs);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+
+
 module.exports = {
   taskPlan_all,
   taskPlan_details,
@@ -418,5 +446,6 @@ module.exports = {
   submitedTasks,
   getPlans,
   changePlanStatus,
-  submitedPlans
+  submitedPlans,
+  getStdentsTasks
 };
