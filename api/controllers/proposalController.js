@@ -115,6 +115,37 @@ const user_proposals = async (req, res) => {
       res.json({ message: error });
     }
   }
+
+
+
+  const all = async (req, res) => {
+    try {
+      let rs = [];
+     
+      const proposals = await Proposal.find({status:'accept2'});
+       
+      for (let i = 0; i < proposals.length; i++) {
+        let id = proposals[i]['supervisorId'];
+        let stdId1 =  proposals[i]['member1'];
+        let stdId2 =  proposals[i]['member2'];
+
+         let std1 = await User.findById(stdId1)
+         let std2 = await User.findById(stdId2) 
+        let user = await User.findById(id);
+
+        if (user && std1 && std2) {
+            let proposal = proposals[i];
+          let data = { proposal, user,std1,std2 };
+          rs.push(data);
+         
+          
+        }
+      }
+      res.json(rs);
+    } catch (error) {
+      res.json({ message: error });
+    }
+  }
  
   
   const downloadFile = (req, res) => {
@@ -299,5 +330,6 @@ module.exports = {
     getEvaluatorProposals,
     getAll,
     get,
-    updateProposalStatus
+    updateProposalStatus,
+    all
 }

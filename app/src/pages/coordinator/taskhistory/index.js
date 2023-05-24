@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllTaskHistory } from "../../../DB/db";
+import { getAllTaskHistory, projectTaskHistory } from "../../../DB/db";
 
 const Taskhistory = () => {
   const taskId = localStorage.getItem("taskId");
@@ -10,7 +10,8 @@ const Taskhistory = () => {
 
   const load = async () => {
     console.log(taskId);
-    let rs = await getAllTaskHistory();
+   // let rs = await getAllTaskHistory();
+    let rs = await projectTaskHistory(taskId);
     console.log("🚀 ~ file: index.js:19 ~ load ~ rs:", rs);
     setData(rs);  
   };

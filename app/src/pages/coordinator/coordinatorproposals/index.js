@@ -26,11 +26,14 @@ const CoordinatorProposals = () => {
   const getProjects = async () => {
     let rs = await getAllIdeas();
     let rv = await cordinatorProposals();
+    
+    rs = rs.filter(item => item.eid === null  || item.eid === undefined);
+    
     setData(rs);
     setProposal(rv);
-    console.log('rv',rv)
- 
+    console.log('rv', rv);
   };
+  
 
   const load = async () => {
     let rs = await getUserByRole("Evaluator");

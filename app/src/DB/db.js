@@ -412,6 +412,18 @@ export const getAllTaskHistory = async()=>{
   }
 }
 
+
+export const projectTaskHistory = async(id)=>{
+  try{
+    console.log('OOO',id)
+    let res = await axios.get(`${URL}taskplan/taskbyId/${id}`);
+    
+    return res.data;
+  }catch(ex){
+   console.log(ex)
+  }
+}
+
 export const allRemarks = async (to, detail) => {
   try {
     let res = await axios.get(`${URL}remarks/`);
@@ -609,3 +621,18 @@ export const updateFinalSatusProposal = async (id) => {
     console.log(ex);
   }
 };
+
+
+
+export const allProposal = async () => {
+  try {
+
+    let rs = await axios.get(`${URL}proposal/all`);
+    return rs.data;
+  } catch (ex) {
+    console.log(ex);
+  }
+};
+
+
+

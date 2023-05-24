@@ -211,7 +211,7 @@ const taskHistory = async (req, res) => {
 const getAllTaskHistory = async (req, res) => {
   try {
    
-    console.log('ok');
+    
     let rs = [];
     const taskPlans = await TaskPlan.find();
     for (let i = 0; i < taskPlans.length; i++) {
@@ -444,6 +444,30 @@ const getStdentsTasks = async (req, res) => {
 };
 
 
+const getTaskHistoryByID = async (req, res) => {
+  try {
+    let {id} = req.params;
+    let rs = [];
+    const taskPlans = await TaskPlan.find({proposalId:id});
+    for (let i = 0; i < taskPlans.length; i++) {
+      let asgto = taskPlans[i]["asgto"];
+       if(asgto !== '-1'){
+        let user = await User.findById(asgto);
+        if (user) {
+          let taskPlan = taskPlans[i];
+          let data = { taskPlan, user };
+          rs.push(data);
+          console.log(data);
+        }
+       }
+
+    }
+    res.json(rs);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
+
 
 module.exports = {
   taskPlan_all,
@@ -463,5 +487,6 @@ module.exports = {
   getPlans,
   changePlanStatus,
   submitedPlans,
-  getStdentsTasks
+  getStdentsTasks,
+  getTaskHistoryByID
 };

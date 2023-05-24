@@ -4,6 +4,7 @@ const taskPlanController=require('../controllers/taskPlanController');
 
 router.get("/get/:uid",taskPlanController.taskPlans);
 router.get("/get",taskPlanController.getPlans);
+router.get("/taskbyId/:id",taskPlanController.getTaskHistoryByID);
 router.get("/submitedTasks/:uid",taskPlanController.submitedTasks);
 router.get("/submitedPlans/:uid",taskPlanController.submitedPlans);
 router.get("/:uid",taskPlanController.taskPlan_all);

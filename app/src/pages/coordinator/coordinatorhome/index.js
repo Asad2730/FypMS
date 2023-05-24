@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllTaskCordinator } from "../../../DB/db";
+import { allProposal, getAllTaskCordinator } from "../../../DB/db";
 
 const Coordinatorhome = () => {
 
@@ -13,9 +13,9 @@ const Coordinatorhome = () => {
   },[])
 
   const load = async() =>{
-    let rs = await getAllTaskCordinator();
+    let rs = await allProposal();
     setData(rs);
-    
+    console.log('rs',rs)    
   }
 
   return (
@@ -47,16 +47,19 @@ const Coordinatorhome = () => {
           </div>
           <div className="border-t-2  px-6 pt-14 sm:mt-3 mt-8 border-gray-200 dark:border-gray-800">
             <p className="sm:text-lg text-base font-semibold leading-4 text-gray-500 dark:text-gray-400 mt-6">
-              {i.taskPlan.name}
+              {i.proposal.name}
             </p>
             <p className="sm:text-lg text-base font-bold leading-5 text-gray-800 dark:text-gray-100 pt-4">
-              {i.user.firstName}  {i.user.lastName}
+              {i.std2.firstName}  {i.std2.lastName}
             </p>
-
+            
+            <p className="sm:text-lg text-base font-bold leading-5 text-gray-800 dark:text-gray-100 pt-4">
+             {i.std2.firstName}  {i.std2.lastName}
+            </p>
             <div className="space-x-4 mt-3">
               <button
                 onClick={() => {
-                  localStorage.setItem('taskId',i.taskPlan._id)
+                  localStorage.setItem('taskId',i.proposal._id)
                   navigate("/taskhistory")
                 }}
                 className="bg-green-500 hover:bg-green-600 px-2 py-1 rounded-lg text-white "
