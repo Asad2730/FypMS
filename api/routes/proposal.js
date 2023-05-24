@@ -10,6 +10,8 @@ router.put('/',proposalController.updateProposatStatus)
 router.put('/addEvaluator',proposalController.addEvalouator)
 router.get('/getEvaluator/:uid',proposalController.getEvaluatorProposals)
 router.get('/adminHome',proposalController.adminHome)
-router.get('/getx/:status',proposalController.getProposals2)
+router.get('/getx/:status',proposalController.get)
+router.patch('/:id',proposalController.updateProposalStatus);
+
 
 module.exports = router;

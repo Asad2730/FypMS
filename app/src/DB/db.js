@@ -453,15 +453,7 @@ export const updateTask = async (id, marks, remarks) => {
   }
 };
 
-export const adminHome = async () => {
-  try {
-    console.log(`${URL}proposal/admin`);
-    let rs = await axios.get(`${URL}proposal/getx/accept2`);
-    return rs.data;
-  } catch (ex) {
-    console.log(ex);
-  }
-};
+
 
 export const getPlans = async () => {
   const url = "http://localhost:8000/api/taskplan/";
@@ -583,3 +575,37 @@ export const getEvaluatorIdeas = async()=>{
   let {data} = await  axios.get(url);
   return data;
 }
+
+
+export const cordinatorProposals = async () => {
+  try {
+    const status = 'accept'
+    let rs = await axios.get(`${URL}proposal/getx/${status}`);
+    return rs.data;
+  } catch (ex) {
+    console.log(ex);
+  }
+};
+
+export const adminHome = async () => {
+  try {
+ 
+    const status = 'accept2'
+    let rs = await axios.get(`${URL}proposal/getx/${status}`);
+    return rs.data;
+  } catch (ex) {
+    console.log(ex);
+  }
+};
+
+
+
+export const updateFinalSatusProposal = async (id) => {
+  try {
+
+    let rs = await axios.patch(`${URL}proposal/${id}`);
+    return rs.data;
+  } catch (ex) {
+    console.log(ex);
+  }
+};

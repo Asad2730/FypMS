@@ -40,7 +40,11 @@ export default function Hodhome() {
         {i.std2.firstName} {i.std2.lastName} <br/>
       </p>
       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{i.user.firstName} {i.user.lastName}</p>
-      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{i.ev.firstName} {i.ev.lastName}</p>
+      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+       {
+        i.ev !== null? <>{i.ev.firstName} {i.ev.lastName}</>:''
+       }
+      </p>
       <button 
       onClick={()=>{
         localStorage.setItem('m1Id',i.proposal.member1)
