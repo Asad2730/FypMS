@@ -11,8 +11,7 @@ const AcceptedIdeas = () => {
   const loadData = async () => {
     let res = await acceptedIdeas();
     setData(res);
-    console.log(res,'res');
-    console.log(res[0].ob1.status,'kkkk')
+   
   };
 
 
