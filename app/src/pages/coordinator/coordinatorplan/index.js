@@ -20,11 +20,13 @@ const Coordinatorplans = () => {
   };
 
   const getPlans = async () => {
-    const url = "http://localhost:8000/api/taskplan/";
+
+    console.log('id',localStorage.getItem('Id'))
+    const url = `http://localhost:8000/api/taskplan/submitedPlans/${localStorage.getItem('Id')}`;
     const { data } = await axios.get(url);
     setallPlans(data);
     console.log("Here");
-    console.log(allPlans);
+    console.log(data);
     console.log("Done");
     
   };
@@ -32,8 +34,7 @@ const Coordinatorplans = () => {
   const MarkCompleted = async (params) => {
     const url = `http://localhost:8000/api/taskplan/${params}`;
     const { data } = await axios.put(url);
-    console.log(data);
-    window.location.reload(false);
+    getPlans();
   };
 
   useEffect(() => {

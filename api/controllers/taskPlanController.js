@@ -398,14 +398,15 @@ const submitedPlans = async (req, res) => {
     const taskPlans = await TaskPlan.find({asgby:uid,asgto:'-1'});
     
     for (let i = 0; i < taskPlans.length; i++) {
-      let id = taskPlans[i]["planUid"];    
-        let user = await User.findById(id);
-        if (user) {
+      let id = taskPlans[i]["planUid"];  
+         let user = null;  
+         user = await User.findById(id);
+        // if (user) {
           let taskPlan = taskPlans[i];
           let data = { taskPlan, user };
           rs.push(data);
       
-      }
+      // }
      
     }
     res.json(rs);
