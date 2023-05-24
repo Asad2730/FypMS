@@ -23,7 +23,10 @@ const Coordinatorplans = () => {
     const url = "http://localhost:8000/api/taskplan/";
     const { data } = await axios.get(url);
     setallPlans(data);
+    console.log("Here");
     console.log(allPlans);
+    console.log("Done");
+    
   };
 
   const MarkCompleted = async (params) => {

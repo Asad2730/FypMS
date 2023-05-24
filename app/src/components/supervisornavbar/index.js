@@ -18,9 +18,9 @@ const navigation = [
     current: false,
   },
   { name: "Proposals", to: "/proposals", icon: HomeIcon, current: false },
-  { name: "Tasks-Submited", to: "/tasksSubmited", icon: HomeIcon, current: false },
+  { name: "Tasks", to: "/tasksSubmited", icon: HomeIcon, current: false },
   // { name: "AddStudent", to: "/addStudent", icon: HomeIcon, current: false },
-  { name: "Ideas-Accepted", to: "/acceptedIdeas", icon: HomeIcon, current: false }
+  { name: "Ideas", to: "/acceptedIdeas", icon: HomeIcon, current: false }
 ];
 
 const userNavigation = [{ name: "Sign out", to: "/" }];
