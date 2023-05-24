@@ -516,7 +516,7 @@ export const submitIdea = async(id,file)=>{
 
 export const acceptedIdeas = async(id)=>{
   let uid = localStorage.getItem('Id');
-  let url = `${URL}idea/${uid}`;
+  let url = `${URL}idea/get/${uid}`;
   let {data} = await  axios.get(url);
   return data;
 }

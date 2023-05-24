@@ -82,6 +82,8 @@ const getIdeas = async (req, res) => {
 
   const getAcceptedIdeas = async (req, res) => {
     try {
+
+      console.log('okkk')
       const { uid } = req.params;
       const rs = [];
       const ideas = await Idea.find({ uid: uid });
@@ -92,6 +94,7 @@ const getIdeas = async (req, res) => {
         if (user) {
           const obj = { 'ob1': ideas[i], 'ob2': user };
           rs.push(obj);
+          console.log('okkk',rs)
         }
       }
   

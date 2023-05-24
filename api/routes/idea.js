@@ -5,7 +5,7 @@ router.get("/",ideaController.getIdeas);
 router.get("/:eid",ideaController.getByEid);
 router.post("/",ideaController.add);
 router.put("/",ideaController.submitIdea);
-router.get("/:uid",ideaController.getAcceptedIdeas);
+router.get("/get/:uid",ideaController.getAcceptedIdeas);
 router.delete("/:id",ideaController.deleteIDea);
 router.patch("/:id/:type",ideaController.updateIDea);
 router.get("/all/:id",ideaController.getAll);

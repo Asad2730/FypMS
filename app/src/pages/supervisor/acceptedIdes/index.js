@@ -12,6 +12,7 @@ const AcceptedIdeas = () => {
     let res = await acceptedIdeas();
     setData(res);
     console.log(res,'res');
+    console.log(res[0].ob1.status,'kkkk')
   };
 
 
@@ -121,7 +122,7 @@ const AcceptedIdeas = () => {
                       
 
                       {
-                        person.ob1.status === 'ok'?
+                        person.ob1.status === 'ok' || person.ob1.status === undefined?
                          <>
                          <button 
                         onClick={()=>updateIDEA(person.ob1._id)}
@@ -138,7 +139,7 @@ const AcceptedIdeas = () => {
                         <td 
                        
                        className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        Accepted
+                        Accepted 
                       </td>
                         <td></td>
                         </>
