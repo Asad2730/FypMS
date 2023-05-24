@@ -1,17 +1,18 @@
 const TaskPlan = require("../models/task_plan");
 const User = require("../models/user");
+const Proposal = require("../models/proposal");
 
 
-const taskPlan_details = async (req, res) => {
+
+const taskPlan_all = async (req, res) => {
   try {
+   
     let rs = [];
     const uid = req.params.uid;
-    const taskPlans = await TaskPlan.find({
-      asgby: req.params.id,
-    });
+    const taskPlans = await TaskPlan.find({asgby:uid});
 
     for (let i = 0; i < taskPlans.length; i++) {
-      let id = taskPlans[i]["asgto"];
+      let id = taskPlans[i]["asgby"];
       let user = await User.findById(id);
       if (user) {
         let taskPlan = taskPlans[i];
@@ -24,6 +25,39 @@ const taskPlan_details = async (req, res) => {
     res.json({ message: error });
   }
 };
+
+const taskPlan_details = async (req, res) => {
+  try {
+
+    let rs = [];
+    const { uid } = req.params;
+    const taskPlans = await TaskPlan.find({ asgby: uid });
+
+    for (let i = 0; i < taskPlans.length; i++) {
+      let proposal = null;
+      let id = taskPlans[i]["asgto"];
+      let pid = taskPlans[i]['proposalId'];
+      let user = await User.findById(id);
+
+      if (pid) {
+        let pr = await Proposal.findById(pid);
+        if (pr) {
+          proposal = pr;
+        }
+      }
+
+      if (user) {
+        let taskPlan = taskPlans[i];
+        let data = { taskPlan, user, proposal };
+        rs.push(data);
+      }
+    }
+    res.json(rs);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
 
 const taskPlan_add = async (req, res) => {
   console.log(req.body);
@@ -221,26 +255,7 @@ const updateTask = async (req, res) => {
 
 
 
-const taskPlan_all = async (req, res) => {
-  try {
-    let rs = [];
-    const uid = req.params.uid;
-    const taskPlans = await TaskPlan.find({asgby:uid});
 
-    for (let i = 0; i < taskPlans.length; i++) {
-      let id = taskPlans[i]["asgby"];
-      let user = await User.findById(id);
-      if (user) {
-        let taskPlan = taskPlans[i];
-        let data = { taskPlan, user };
-        rs.push(data);
-      }
-    }
-    res.json(rs);
-  } catch (error) {
-    res.json({ message: error });
-  }
-};
 
 
 const taskPlans = async (req, res) => {

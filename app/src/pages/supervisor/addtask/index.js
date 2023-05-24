@@ -35,7 +35,6 @@ const Addtask = () => {
   const setEdit =async () =>{
     
     let data =await singleTask(editTaskId)
-    console.log(data)
     setName(data.name)
     setDeadLine(`${data.deadline}`)
     setDescription(data.description)
@@ -43,16 +42,22 @@ const Addtask = () => {
     setProposalFile(data.proposalFile)
 
   }
-  const getStudents = async()=>{   
-    let data = await getUserByRole('Student');
-     for(let i =0;i<data.length;i++){
-      if(data[i]._id == asgto1 || data[i]._id == asgto2)
-       setStudents(data);   
-     }
-     
-    }
 
- 
+
+  const getStudents = async () => {
+    try {
+      let data = await getUserByRole('Student');
+      let filteredData = data.filter(
+        user => user._id === asgto1 || user._id === asgto2
+      );
+      setStudents(filteredData);
+    } catch (error) {
+      console.log('error',error)
+    }
+  };
+  
+
+
     const submit = async() =>{   
      try{
       let response;

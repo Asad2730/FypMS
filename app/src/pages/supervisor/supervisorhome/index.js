@@ -16,6 +16,7 @@ const Supervisorhome = () => {
   const loadData = async () => {
     let res = await getUserPropsals();
     setData(res);
+
   };
 
   return (

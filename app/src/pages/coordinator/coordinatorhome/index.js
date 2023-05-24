@@ -15,6 +15,7 @@ const Coordinatorhome = () => {
   const load = async() =>{
     let rs = await getAllTaskCordinator();
     setData(rs);
+    
   }
 
   return (

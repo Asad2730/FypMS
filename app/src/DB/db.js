@@ -385,6 +385,7 @@ export const getAllTaskCordinator = async () => {
   try {
 
     let uid = localStorage.getItem('Id');
+   
     let res = await axios.get(`${URL}taskplan/${uid}`);
     return res.data;
   } catch (ex) {
