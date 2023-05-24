@@ -11,12 +11,13 @@ const AcceptedIdeas = () => {
   const loadData = async () => {
     let res = await acceptedIdeas();
     setData(res);
-   
+    console.log('ooo', res[0].ob1.status === 'ok' )
   };
 
 
   const updateIDEA = async (id)=>{
-    await updateIdea(id,'0')
+
+   let r = await updateIdea(id,'0')
     loadData()
   }
 
@@ -121,7 +122,7 @@ const AcceptedIdeas = () => {
                       
 
                       {
-                        person.ob1.status === 'ok' || person.ob1.status === undefined?
+                        person.ob1.status !== 'ok' || person.ob1.status === undefined?
                          <>
                          <button 
                         onClick={()=>updateIDEA(person.ob1._id)}
@@ -134,7 +135,8 @@ const AcceptedIdeas = () => {
                        className="whitespace-nowrap px-3 py-2 mt-2 text-sm text-white bg-red-400 rounded -lg">
                         Reject
                       </button>
-                        </>:<>
+                        </>:
+                        <>
                         <td 
                        
                        className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
