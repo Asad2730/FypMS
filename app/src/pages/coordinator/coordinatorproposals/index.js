@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
-  addEvaluator,
-  changeProposalStatus,
-  getProposals,
+  getAllIdeas,
+  updateIdea,
   getUserByRole,
 } from "../../../DB/db";
 
@@ -17,8 +16,9 @@ const CoordinatorProposals = () => {
   }, []);
 
   const getProjects = async () => {
-    let rs = await getProposals("accept");
+    let rs = await getAllIdeas();
     setData(rs);
+ 
   };
 
   const load = async () => {
@@ -28,14 +28,12 @@ const CoordinatorProposals = () => {
   };
 
   const accept = async (id) => {
-    await addEvaluator(id, evid, "accept2");
+    const res = await updateIdea(id, evid);
     getProjects();
+    console.log(res,'rrr')
   };
 
-  const reject = async (id) => {
-    await changeProposalStatus(id, "reject");
-    getProjects();
-  };
+
 
   return (
     <>
@@ -52,11 +50,7 @@ const CoordinatorProposals = () => {
         {data.map((i) => (
           <>
             <div className="max-w-sm  relative rounded shadow bg-white dark:bg-gray-800">
-              <img
-                className="h-48 w-96"
-                src="https://www.techrepublic.com/wp-content/uploads/2022/03/project-management-software-best-update.jpeg"
-              />
-
+           
               <div className="border-t-2 px-6 pt-5 p-5 sm:mt-3 border-gray-200 dark:border-gray-800">
                 <p className="sm:text-lg text-base font-semibold leading-4 text-gray-500 dark:text-gray-400 mt-6">
                   {i.title}
@@ -86,14 +80,9 @@ const CoordinatorProposals = () => {
                     onClick={() => accept(i._id)}
                     className="bg-green-500 hover:bg-green-700 px-2 py-1 rounded-lg text-white "
                   >
-                    Accept
+                    Assign
                   </button>
-                  <button
-                    onClick={() => reject(i._id)}
-                    className="bg-red-500 hover:bg-red-700  px-2 py-1 rounded-lg text-white "
-                  >
-                    Reject
-                  </button>
+                 
                 </div>
               </div>
             </div>{" "}

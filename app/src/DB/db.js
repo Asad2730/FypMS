@@ -550,9 +550,9 @@ export const getMembersTasks = async (m1,m2) => {
 };
 
 
-export const updateIdea = async (id)=>{
+export const updateIdea = async (id,type)=>{
  
-  let url = `${URL}idea/${id}`;
+  let url = `${URL}idea/${id}/${type}`;
   let {data} = await  axios.patch(url);
   return data;
 }
@@ -562,5 +562,24 @@ export const deleteIdea = async(id)=>{
   
   let url = `${URL}idea/${id}`;
   let {data} = await  axios.delete(url);
+  return data;
+}
+
+
+
+export const getAllIdeas = async()=>{ 
+
+  let id = '123'
+  let url = `${URL}idea/all/${id}`;
+  let {data} = await  axios.get(url);
+  return data;
+}
+
+
+export const getEvaluatorIdeas = async()=>{ 
+
+  let id = localStorage.getItem('Id')
+  let url = `${URL}idea/${id}`;
+  let {data} = await  axios.get(url);
   return data;
 }

@@ -38,8 +38,8 @@ const getIdeas = async (req, res) => {
   try {
     const pending = await Idea.find({
       $or: [
-        { sid: { $exists: false } }, // Find documents where the `sid` field does not exist
-        { sid: null } // Find documents where the `sid` field is null
+        { sid: { $exists: false } }, 
+        { sid: null },     
       ]
     });
 
@@ -118,10 +118,17 @@ const getIdeas = async (req, res) => {
 
   const updateIDea = async (req, res) => {
     try {
-      const { id } = req.params;
+      const { id,type } = req.params;
+      let obj 
+      if(type === '0'){
+         obj = {status:'ok'}
+      }else{
+        obj = {eid:type}
+      }
+
       const idea = await Idea.findByIdAndUpdate(
         id,
-        {status:'ok'},
+        obj,
         { new: true },
         )
       res.json(idea);
@@ -131,11 +138,44 @@ const getIdeas = async (req, res) => {
   }
 
 
+  const getAll = async (req, res) => {
+    try {
+      const idea = await Idea.find({status:'ok'});
+      res.json(idea);
+    } catch (ex) {
+      res.json(ex);
+    }
+  }
+
+
+
+  const getByEid = async (req, res) => {
+    try {
+     const {eid} = req.params;
+     const rs = [];
+     const idea = await Idea.find({eid:eid})
+    for(let i=0;i<idea.length;i++){
+         let id = idea[i]['sid']
+         let user = await User.findById(id)
+         if(user){
+          rs.push({'idea':idea[i],'user':user})
+         }
+    }
+    res.json(rs);
+    } catch (ex) {
+      res.json(ex);
+    }
+  }
+
+
+
 module.exports = {
     add,
     getIdeas,
     submitIdea,
     getAcceptedIdeas,
     deleteIDea,
-    updateIDea
+    updateIDea,
+    getAll,
+    getByEid
 }

@@ -16,7 +16,7 @@ const AcceptedIdeas = () => {
 
 
   const updateIDEA = async (id)=>{
-    await updateIdea(id)
+    await updateIdea(id,'0')
     loadData()
   }
 

@@ -1,4 +1,5 @@
 const Proposal = require("../models/proposal");
+
 const  User = require("../models/user");
 const fs = require('fs');
 const path = require('path');
@@ -54,7 +55,8 @@ const getEvaluatorProposals = async (req, res) => {
       'evid':uid,
      }
     );
- 
+    
+   
     for (let i = 0; i < proposals.length; i++) {
       let id = proposals[i]['supervisorId'];
       let stdId1 =  proposals[i]['member1'];
@@ -63,8 +65,8 @@ const getEvaluatorProposals = async (req, res) => {
        let std1 = await User.findById(stdId1)
        let std2 = await User.findById(stdId2) 
       let user = await User.findById(id);
-   
-
+      
+      
       if (user && std1 && std2) {
         let proposal = proposals[i];
         let data = { proposal, user,std1,std2 };
