@@ -39,12 +39,12 @@ const navigation = [
   // { name: "Task-History", to: "/taskhistory", icon: UsersIcon, current: false },
   { name: "Plan-History", to: "/planHistory", icon: UsersIcon, current: false },
 
-  // {
-  //   name: "Proposal",
-  //   to: "/coordinatorproposals",
-  //   icon: FolderIcon,
-  //   current: false,
-  // },
+  {
+    name: "Proposal",
+    to: "/coordinatorproposals",
+    icon: FolderIcon,
+    current: false,
+  },
   {
     name: "Feedback",
     to: "/coordinatorfeedback",

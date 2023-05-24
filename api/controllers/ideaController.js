@@ -103,9 +103,39 @@ const getIdeas = async (req, res) => {
   
 
 
+
+  
+  const deleteIDea = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const idea = await Idea.findByIdAndDelete(id);
+      res.json(idea);
+    } catch (ex) {
+      res.json(ex);
+    }
+  }
+
+
+  const updateIDea = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const idea = await Idea.findByIdAndUpdate(
+        id,
+        {status:'ok'},
+        { new: true },
+        )
+      res.json(idea);
+    } catch (ex) {
+      res.json(ex);
+    }
+  }
+
+
 module.exports = {
     add,
     getIdeas,
     submitIdea,
     getAcceptedIdeas,
+    deleteIDea,
+    updateIDea
 }

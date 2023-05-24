@@ -8,13 +8,12 @@ const Projectdetails = () => {
 
   useEffect(() => {
     getTasks();
-    getTasks();
   }, []);
 
   const getTasks = async () => {
     let rs = await getProposalsTask();
     setData(rs);
-    console.log(rs, "data");
+   
   };
 
   return (
@@ -66,6 +65,13 @@ const Projectdetails = () => {
                     >
                       Marks
                     </th>
+                     
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                     Type
+                    </th>
 
                     <th
                       scope="col"
@@ -95,6 +101,11 @@ const Projectdetails = () => {
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           {person.ob.marks}
                         </td>
+                        {person.ob.asgto === '-1'? <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            Plan
+                        </td>: <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          Task
+                        </td>}
                         <td className="relative whitespace-nowrap py-4  pr-4 text-right text-sm font-medium sm:pr-0">
                           <button
                             onClick={() => {

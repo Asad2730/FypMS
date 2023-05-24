@@ -7,15 +7,15 @@ const Evaluteform = () => {
   
   
   const [marks,setMarks] = useState();
-  const [remarks,setRemarks] = useState();
+  //const [remarks,setRemarks] = useState();
   const id = localStorage.getItem('Tid')
    console.log(id,'id')
 
   const submit = async() =>{   
-      let r = await updateTask(id,marks,remarks)
+      let r = await updateTask(id,marks,'')
       if(r){
         setMarks('')
-        setRemarks('')
+      //  setRemarks('')
       }
    }
 
@@ -53,7 +53,7 @@ const Evaluteform = () => {
                 </div>
               </div>
 
-              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              {/* <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
                 <label
                   htmlFor="email"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -70,7 +70,7 @@ const Evaluteform = () => {
                     onChange={e=>setRemarks(e.target.value)}
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="mt-3 flex items-center justify-center gap-x-6">

@@ -20,6 +20,12 @@ const ideaSchema = new mongoose.Schema(
     sid: {
       type: String,    
     },
+    status:{
+      type: String,    
+    },
+    eid:{
+      type:String
+    }
   },
   {
     timestamps: true,

@@ -548,3 +548,19 @@ export const getMembersTasks = async (m1,m2) => {
     console.log(ex);
   }
 };
+
+
+export const updateIdea = async (id)=>{
+ 
+  let url = `${URL}idea/${id}`;
+  let {data} = await  axios.patch(url);
+  return data;
+}
+
+
+export const deleteIdea = async(id)=>{
+  
+  let url = `${URL}idea/${id}`;
+  let {data} = await  axios.delete(url);
+  return data;
+}

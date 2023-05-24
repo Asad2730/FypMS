@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { acceptedIdeas, downloadFile, getSubmitedTasks_Plans } from "../../../DB/db";
+import { acceptedIdeas, deleteIdea, downloadFile, getSubmitedTasks_Plans, updateIdea } from "../../../DB/db";
 
 const AcceptedIdeas = () => {
   const [data, setData] = useState([]);
@@ -13,6 +13,18 @@ const AcceptedIdeas = () => {
     setData(res);
     console.log(res,'res');
   };
+
+
+  const updateIDEA = async (id)=>{
+    await updateIdea(id)
+    loadData()
+  }
+
+
+  const deleteIDEA = async (id)=>{
+    await deleteIdea(id)
+    loadData()
+  }
 
 
   return (
@@ -58,6 +70,22 @@ const AcceptedIdeas = () => {
                     >
                      Solution File
                     </th>
+
+                    
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                    
+                    </th>
+
+                    
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                     
+                    </th>
                   
                   </tr>
                 </thead>
@@ -82,7 +110,33 @@ const AcceptedIdeas = () => {
                        className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {person.ob1.solFile}
                       </td>
-                    
+                      
+
+                      {
+                        person.ob1.status === 'ok'?
+                         <>
+                         <button 
+                        onClick={()=>updateIDEA(person.ob1._id)}
+                       className="whitespace-nowrap px-3 py-2 mt-2 text-sm text-white bg-green-400 rounded -lg">
+                         Accept
+                      </button>
+                     
+                      <button 
+                        onClick={()=>deleteIDEA(person.ob1._id)}
+                       className="whitespace-nowrap px-3 py-2 mt-2 text-sm text-white bg-red-400 rounded -lg">
+                        Reject
+                      </button>
+                        </>:<>
+                        <td 
+                       
+                       className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        Accepted
+                      </td>
+                        <td></td>
+                        </>
+                      }
+                     
+
                     </tr>
                   ))}
                 </tbody>
