@@ -108,12 +108,8 @@ const taskPlan_delete = async (req, res) => {
 const taskPlan_update = async (req, res) => {
   try {
     const { id } = req.params;
-    const taskplan = { status: "completed" };
+    const taskplan = { status: "completed",interim:req.body.interim };
     const updatedPlan = await TaskPlan.findByIdAndUpdate({ _id: id }, taskplan);
-    console.log(
-      "🚀 ~ file: taskPlanController.js:100 ~ consttaskPlan_update= ~ updatedPlan:",
-      updatedPlan
-    );
     await updatedPlan.save();
     res.json("updated").status(200);
   } catch (error) {}
@@ -290,14 +286,13 @@ const studentTask = async (req, res) => {
       asgto: id,
       status: "pending",
     });
-  
+   
     for (let i = 0; i < taskPlans.length; i++) {
       let id = taskPlans[i]["asgby"];
       let user = await User.findById(id);
       if (user) {
         let taskPlan = taskPlans[i];
         let data = { taskPlan, user };
-        console.log('data',data)
         rs.push(data);
       }
     }
@@ -469,6 +464,65 @@ const getTaskHistoryByID = async (req, res) => {
 };
 
 
+const ideatask_add = async (req, res) => {
+  
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send("No files were uploaded.");
+  }
+
+  let sampleFile = req.files.proposalFile;
+  await sampleFile.mv("./uploads/" + sampleFile.name, function (err) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+  });
+  const taskPlan = new TaskPlan({
+    name: req.body.name,
+    asgto: req.body.asgto,
+    taskby:req.body.taskby,
+    description: req.body.description,
+    asgby:req.body.asgby,
+    file: sampleFile.name,
+    status: "pending",
+    ideaId: req.body.ideaId,
+    deadline: Date(req.body.deadline),   
+  });
+  try {
+    const savedtaskPlan = await taskPlan.save();
+
+    res.send(savedtaskPlan);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+
+
+const getTaskByIdeaID = async (req, res) => {
+  try {
+
+    let rs = [];
+    const { id } = req.params;
+    const taskPlans = await TaskPlan.find({ ideaId: id });
+
+    for (let i = 0; i < taskPlans.length; i++) {
+     
+      let id = taskPlans[i]["asgto"];
+      let user = await User.findById(id);
+
+      if (user) {
+        let taskPlan = taskPlans[i];
+        let data = { taskPlan, user };
+        rs.push(data);
+      }
+    }
+    res.json(rs);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+
 module.exports = {
   taskPlan_all,
   taskPlan_details,
@@ -488,5 +542,7 @@ module.exports = {
   changePlanStatus,
   submitedPlans,
   getStdentsTasks,
-  getTaskHistoryByID
+  getTaskHistoryByID,
+  ideatask_add,
+  getTaskByIdeaID
 };

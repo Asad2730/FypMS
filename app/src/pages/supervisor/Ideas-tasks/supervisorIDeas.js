@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getTaskById, deleteTask } from "../../../DB/db";
+import { deleteTask, getIDeaTaskById } from "../../../DB/db";
 
-const Supervisortask = () => {
+const Supervisorideas = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
-  localStorage.setItem("editTaskId", "-1");
+  
 
   useEffect(() => {
     loadData();
   }, []);
 
   const loadData = async () => {
-    let res = await getTaskById(localStorage.getItem("Id"));
+    let res = await getIDeaTaskById(localStorage.getItem("ideaId"));
     setData(res);
   };
 
@@ -21,10 +21,7 @@ const Supervisortask = () => {
     loadData();
   };
 
-  const updateTask = (id) => {
-    localStorage.setItem("editTaskId", id);
-    navigate("/Addtask");
-  };
+ 
 
   return (
     <>
@@ -32,15 +29,17 @@ const Supervisortask = () => {
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
             <h1 className="text-base font-semibold leading-6 text-gray-900">
-              Supervisor Tasks
+              Supervisor Idea-Tasks
             </h1>
           </div>
           <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
             <button
-              onClick={() =>{ 
-                localStorage.setItem('IdeaTask','0')
+          
+              onClick={() => {
+                localStorage.setItem('editTaskId','-1')
+                localStorage.setItem('IdeaTask','1')
                 navigate("/Addtask")
-              }}
+            }}
               type="button"
               className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
@@ -84,12 +83,7 @@ const Supervisortask = () => {
                     >
                       Deadline
                     </th>
-                    <th
-                      scope="col"
-                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
-                    >
-                      <span className="sr-only">Edit</span>
-                    </th>
+                   
                     <th
                       scope="col"
                       className="relative py-3.5 pl-3 pr-4 sm:pr-0"
@@ -116,18 +110,7 @@ const Supervisortask = () => {
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {person.taskPlan.deadline}
                       </td>
-                      <td className="relative whitespace-nowrap py-4  text-right text-sm font-medium sm:pr-0">
-                        <button
-                          href="#"
-                          onClick={() => updateTask(person.taskPlan._id)}
-                          className="text-white hover:bg-green-600 bg-green-500 px-2 py-2 rounded-lg"
-                        >
-                          Edit
-                          <span className="sr-only">
-                            , {person.taskPlan.name}
-                          </span>
-                        </button>
-                      </td>
+                     
                       <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
                         <button
                           onClick={() => removeTask(person.taskPlan._id)}
@@ -152,4 +135,4 @@ const Supervisortask = () => {
   );
 };
 
-export default Supervisortask;
+export default Supervisorideas;

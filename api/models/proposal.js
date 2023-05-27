@@ -37,6 +37,12 @@ const proposalSchema = new mongoose.Schema(
         type:String,
         require:true  
       },
+      phoneNo1:{
+        type:String,
+      },
+      phoneNo2:{
+        type:String,
+      }
   },
   {
     timestamps: true,

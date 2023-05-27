@@ -29,6 +29,8 @@ const Enumerable = require('linq');
         proposalFile: sampleFile.name,
         uid: req.body.uid,
         status:'pending',
+        phoneNo1:req.body.phoneNo1,
+        phoneNo2:req.body.phoneNo2
       });
 
       

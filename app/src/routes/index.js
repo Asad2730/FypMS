@@ -43,6 +43,7 @@ import EvaluteformHod from "../pages/Hod/remarks";
 import SubmittedTasks from "../pages/supervisor/submittedTasks";
 import AcceptedIdeas from "../pages/supervisor/acceptedIdes";
 import PlanHistory from "../pages/coordinator/planHistory";
+import Supervisorideas from "../pages/supervisor/Ideas-tasks/supervisorIDeas";
 
 const Approutes = () => {
   return (
@@ -77,6 +78,7 @@ const Approutes = () => {
           <Route path="/Supervisortasks" element={<Supervisortask />} />
           <Route path="/tasksSubmited" element={<SubmittedTasks/>} />
           <Route path="/acceptedIdeas" element={<AcceptedIdeas/>} />
+          <Route path="/idea-tasks" element={<Supervisorideas/>}/>
         </Route>
 
         <Route element={<Evaluatorlayout />}>

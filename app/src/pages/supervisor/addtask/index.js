@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from "react";
-import {getUserByRole,addTask,editTask,singleTask} from '../../../DB/db';
+import {getUserByRole,addTask,editTask,singleTask, addIdeaTask} from '../../../DB/db';
 
 const Addtask = () => {
 
@@ -19,6 +19,9 @@ const Addtask = () => {
   
   const editTaskId = localStorage.getItem('editTaskId')
  
+  const idea = localStorage.getItem('IdeaTask');
+ 
+
 
   useEffect(()=>{
    
@@ -62,16 +65,25 @@ const Addtask = () => {
      try{
       let response;
       if(editTaskId  === '-1'){
-         response = await addTask(name,asgto,description,deadLine,proposalFile,proposalId);
+        if(idea === '1'){
+        
+          const ideaId = localStorage.getItem('ideaId');
+          response = await addIdeaTask(name,asgto1,description,deadLine,proposalFile,ideaId);
+     
+        }else{          
+          response = await addTask(name,asgto,description,deadLine,proposalFile,proposalId);
+        }
+         
       }else{
         response = await editTask(name,asgto,description,deadLine,proposalFile,editTaskId);
       }
-      console.log(response)      
+  
        if(response){
        setName('')
        setDeadLine('')
        setDescription('')
        setAsgTo('')
+       setProposalFile('')
        setProposalFile('')
       }
      }catch(ex){
@@ -87,7 +99,7 @@ const Addtask = () => {
         <div className="space-y-12 p-3 sm:space-y-16">
           <div>
             <h2 className="text-base text-center font-semibold leading-7 text-gray-900">
-              Add Task Form
+            Add Task Form
             </h2>
             {/* <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-600">
               Use a permanent address where you can receive mail.

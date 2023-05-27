@@ -3,7 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addTask } from "../../../DB/db";
 
-
+const options = [
+  { title:'1st interim',value:'1' },
+  { title:'2nd interim',value:'2' },
+  { title:'3rd interim',value:'3' }
+]
 
 const Coordinatorplans = () => {
   const navigate = useNavigate();
@@ -12,6 +16,8 @@ const Coordinatorplans = () => {
   const [Description, setDescription] = useState("");
   const [File, setFile] = useState(null);
   const [Date, setDate] = useState("");
+  const [selectedOption, setSelectedOption] = useState('1');
+
 
   const addPlan = async () => {
    let asgto = '-1'
@@ -33,7 +39,8 @@ const Coordinatorplans = () => {
 
   const MarkCompleted = async (params) => {
     const url = `http://localhost:8000/api/taskplan/${params}`;
-    const { data } = await axios.put(url);
+    const { data } = await axios.put(url,{'interim':selectedOption});
+    
     getPlans();
   };
 
@@ -193,12 +200,30 @@ const Coordinatorplans = () => {
                         <td></td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           {plan.taskPlan.status != "completed" ? (
+                            <>
+                          
                             <button
                               onClick={() => MarkCompleted(plan.taskPlan._id)}
                               className="bg-green-500 px-2 py-1 text-white rounded-lg hover:bg-green-600"
                             >
                               Complete Plan
                             </button>
+                          
+                            <select
+                    className="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={selectedOption}
+                    onChange={(e) => setSelectedOption(e.target.value)}
+                  >
+                    {options.map((i) => (
+                      <>
+                        <option value={i.value}>
+                          {i.title}
+                        </option>
+                      </>
+                    ))}
+                  </select>
+
+                            </>
                           ) : (
                             <p>{plan.taskPlan.status}</p>
                           )}

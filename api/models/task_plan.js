@@ -12,7 +12,7 @@ const taskPlanSchema = new mongoose.Schema(
     },
     asgby: {
       type: String,
-      required: true,
+      
     },
     description: {
       type: String,
@@ -46,6 +46,15 @@ const taskPlanSchema = new mongoose.Schema(
     },
     planUid:{
       type:String
+    },
+    taskby:{
+      type:String
+    },
+    ideaId:{
+      type:String
+    },
+    interim:{
+      type:String,
     }
   },
   {

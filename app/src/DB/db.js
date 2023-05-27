@@ -107,7 +107,9 @@ export const addProposal = async (
   member1,
   member2,
   supervisorId,
-  proposalFile
+  proposalFile,
+  phoneNo1,
+  phoneNo2,
 ) => {
   try {
     let data = new FormData();
@@ -117,6 +119,8 @@ export const addProposal = async (
     data.append("supervisorId", supervisorId);
     data.append("proposalFile", proposalFile);
     data.append("uid", localStorage.getItem("Id"));
+    data.append('phoneNo1',phoneNo1);
+    data.append('phoneNo2',phoneNo2);
 
     let response = await axios.post(`${URL}proposal/`, data, {
       headers: { "Content-Type": "multipart/form-data" },
@@ -218,27 +222,11 @@ export const getIdeas = async () => {
   }
 };
 
-export const addTask = async (
-  name,
-  asgto,
-  description,
-  deadLine,
-  proposalFile,
-  proposalId
-) => {
-  try {
-    let data = new FormData();
-    data.append("name", name);
-    data.append("proposalFile", proposalFile);
-    data.append("asgby", localStorage.getItem("Id"));
-    data.append("asgto", asgto);
-    data.append("description", description);
-    data.append("deadLine", deadLine);
-    data.append("proposalId", proposalId);
 
-    let res = await axios.post(`${URL}taskplan`, data, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+
+export const getTaskById = async (id) => {
+  try {
+    let res = await axios.get(`${URL}taskplan/${id}`);
 
     return res.data;
   } catch (ex) {
@@ -246,10 +234,10 @@ export const addTask = async (
   }
 };
 
-export const getTaskById = async (id) => {
-  try {
-    let res = await axios.get(`${URL}taskplan/${id}`);
 
+export const getIDeaTaskById = async (id) => {
+  try {
+    let res = await axios.get(`${URL}taskplan/idea/${id}`);
     return res.data;
   } catch (ex) {
     console.log(ex);
@@ -634,5 +622,62 @@ export const allProposal = async () => {
   }
 };
 
+
+export const addTask = async (
+  name,
+  asgto,
+  description,
+  deadLine,
+  proposalFile,
+  proposalId
+) => {
+  try {
+    let data = new FormData();
+    data.append("name", name);
+    data.append("proposalFile", proposalFile);
+    data.append("asgby", localStorage.getItem("Id"));
+    data.append("asgto", asgto);
+    data.append("description", description);
+    data.append("deadLine", deadLine);
+    data.append("proposalId", proposalId);
+
+    let res = await axios.post(`${URL}taskplan`, data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    return res.data;
+  } catch (ex) {
+    console.log(ex);
+  }
+};
+
+
+export const addIdeaTask = async (
+  name,
+  asgto,
+  description,
+  deadLine,
+  proposalFile,
+  ideaId
+) => {
+  try {
+    let data = new FormData();
+    data.append("name", name);
+    data.append("proposalFile", proposalFile);
+    data.append("asgby", localStorage.getItem("Id"));
+    data.append("asgto", asgto);
+    data.append("description", description);
+    data.append("deadLine", deadLine);
+    data.append("ideaId", ideaId);
+
+    let res = await axios.post(`${URL}taskplan/addIdea`, data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    return res.data;
+  } catch (ex) {
+    console.log(ex);
+  }
+};
 
 

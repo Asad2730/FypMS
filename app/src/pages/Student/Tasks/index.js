@@ -16,7 +16,7 @@ const Studentstasks = () => {
   const load = async () => {
     let rs = await getStudentTasks();
     setData(rs);
-  
+    
   };
 
   const submit = async (id,proposalFile) => {

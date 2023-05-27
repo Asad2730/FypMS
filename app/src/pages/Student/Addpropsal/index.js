@@ -13,6 +13,8 @@ const Addproposal = () => {
   const [member2,setMember2] = useState();
   const [supervisorId,setSupervisorId] = useState();
   const [proposalFile,setProposalFile] = useState();
+  const [phoneNo1,setPhoneNO1] = useState();
+  const [phoneNo2,setPhoneNO2] = useState();
    
   useEffect(()=>{
       getSupervisors()
@@ -33,8 +35,8 @@ const Addproposal = () => {
    const submit = async() =>{   
     try{
 
-      console.log('sid',supervisorId)
-    let response = await addProposal(title,localStorage.getItem('Id'),member2,supervisorId,proposalFile); 
+    let response = await addProposal(title,localStorage.getItem('Id'),member2,
+    supervisorId,proposalFile,phoneNo1,phoneNo2); 
    
      if(response){
       setTitle('')
@@ -42,6 +44,8 @@ const Addproposal = () => {
       setMember2('')
       setSupervisorId('')
       setProposalFile('')
+      setPhoneNO1('')
+      setPhoneNO2('')
      }
     }catch(ex){
        console.log(ex)
@@ -153,6 +157,42 @@ const Addproposal = () => {
                   />
                 </div>
               </div>
+
+              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                <label
+                 
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                 PhoneNo member 2
+                </label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    className="block p-2  w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="your phone number"
+                    onChange={(e) => setPhoneNO1(e.target.value)}
+                  />
+                </div>
+              </div>
+
+
+              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                <label
+                 
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                 PhoneNo member 2
+                </label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    className="block p-2  w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="your phone number"
+                    onChange={(e) => setPhoneNO2(e.target.value)}
+                  />
+                </div>
+              </div>
+
             </div>
 
             <div className="mt-3 flex items-center justify-center gap-x-6">

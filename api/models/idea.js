@@ -25,7 +25,8 @@ const ideaSchema = new mongoose.Schema(
     },
     eid:{
       type:String
-    }
+    },
+   
   },
   {
     timestamps: true,
