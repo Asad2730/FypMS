@@ -83,7 +83,7 @@ const PlanHistory = () => {
                         {person.taskPlan.name}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {person.user.firstName} {person.user.lastName}
+                        {person?.user?.firstName} {person?.user?.lastName}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {person.taskPlan.description}

@@ -523,6 +523,73 @@ const getTaskByIdeaID = async (req, res) => {
 };
 
 
+const proposalTasks = async (req, res) => {
+  try {
+
+    let rs = [];
+    const { id } = req.params;
+    const taskPlans = await TaskPlan.find({ proposalId: id });
+
+    for (let i = 0; i < taskPlans.length; i++) {
+      let proposal = null;
+      let id = taskPlans[i]["asgto"];
+      let pid = taskPlans[i]['proposalId'];
+      let user = await User.findById(id);
+
+      if (pid) {
+        let pr = await Proposal.findById(pid);
+        if (pr) {
+          proposal = pr;
+        }
+      }
+
+      if (user) {
+        let taskPlan = taskPlans[i];
+        let data = { taskPlan, user, proposal };
+        rs.push(data);
+      }
+    }
+    res.json(rs);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+
+
+
+const getInterims = async (req, res) => {
+  try {
+    const { sid1, sid2,interim } = req.params;
+    const taskPlans = await TaskPlan.find({
+      $or: [
+        { planUid: sid1 },
+        { planUid: sid2 }
+      ],
+      $and:[
+        {interim:interim}
+      ],
+    }).lean();
+    
+    console.log('data',taskPlans);
+    
+    const userIds = [sid1,sid2]
+    const users = await User.find({ _id: { $in: userIds } }).lean();
+
+    const rs = taskPlans.map(taskPlan => {
+      const user = users.find(user => user._id.toString() === taskPlan.planUid.toString());
+      if (user) {
+        return { taskPlan, user };
+      }
+    }).filter(data => data);
+
+    res.json(rs);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+
 module.exports = {
   taskPlan_all,
   taskPlan_details,
@@ -544,5 +611,7 @@ module.exports = {
   getStdentsTasks,
   getTaskHistoryByID,
   ideatask_add,
-  getTaskByIdeaID
+  getTaskByIdeaID,
+  proposalTasks,
+  getInterims
 };

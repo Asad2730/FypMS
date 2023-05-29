@@ -227,7 +227,15 @@ export const getIdeas = async () => {
 export const getTaskById = async (id) => {
   try {
     let res = await axios.get(`${URL}taskplan/${id}`);
+    return res.data;
+  } catch (ex) {
+    console.log(ex);
+  }
+};
 
+export const getTaskByProposalId = async (id) => {
+  try {
+    let res = await axios.get(`${URL}taskplan/proposalId/${id}`);
     return res.data;
   } catch (ex) {
     console.log(ex);
@@ -600,10 +608,10 @@ export const adminHome = async () => {
 
 
 
-export const updateFinalSatusProposal = async (id) => {
+export const updateFinalSatusProposal = async (id,eid) => {
   try {
 
-    let rs = await axios.patch(`${URL}proposal/${id}`);
+    let rs = await axios.post(`${URL}proposal/${id}/${eid}`);
     return rs.data;
   } catch (ex) {
     console.log(ex);
@@ -680,4 +688,18 @@ export const addIdeaTask = async (
   }
 };
 
+
+export const getInterims = async (
+  sid1,
+  sid2,
+  interim) => {
+  try {
+    console.log('okkk')
+    console.log(`taskplan/${sid1}/${sid2}/${interim}`)
+    let res = await axios.get(`${URL}taskplan/${sid1}/${sid2}/${interim}`);
+    return res.data;
+  } catch (ex) {
+    console.log(ex);
+  }
+};
 

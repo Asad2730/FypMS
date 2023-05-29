@@ -44,6 +44,7 @@ import SubmittedTasks from "../pages/supervisor/submittedTasks";
 import AcceptedIdeas from "../pages/supervisor/acceptedIdes";
 import PlanHistory from "../pages/coordinator/planHistory";
 import Supervisorideas from "../pages/supervisor/Ideas-tasks/supervisorIDeas";
+import InterimMain from "../pages/evaluator/interims";
 
 const Approutes = () => {
   return (
@@ -82,11 +83,14 @@ const Approutes = () => {
         </Route>
 
         <Route element={<Evaluatorlayout />}>
+          
           <Route path="/evaluatorhome" element={<Evaluatorhome />} />
           <Route path="/projectdetails" element={<Projectdetails />} />
           <Route path="/evaluate" element={<Evaluteform />} />
           <Route path="/evaluatorfeedback" element={<Evaluatorfeedback />} />
           <Route path="/evaluatorfeedbackform" element={<Efeedbackform />} />
+          <Route path="/interimMain" element={<InterimMain/>} />
+
         </Route>
         <Route element={<Coordinatorlayout />}>
           <Route path="/coordinatorhome" element={<Coordinatorhome />} />

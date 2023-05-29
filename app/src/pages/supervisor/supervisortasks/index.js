@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getTaskById, deleteTask } from "../../../DB/db";
+import { getTaskById, deleteTask, getTaskByProposalId } from "../../../DB/db";
 
 const Supervisortask = () => {
   const navigate = useNavigate();
@@ -12,7 +12,8 @@ const Supervisortask = () => {
   }, []);
 
   const loadData = async () => {
-    let res = await getTaskById(localStorage.getItem("Id"));
+    //localStorage.getItem("proposalId")
+    let res = await getTaskByProposalId(localStorage.getItem("proposalId"));
     setData(res);
   };
 

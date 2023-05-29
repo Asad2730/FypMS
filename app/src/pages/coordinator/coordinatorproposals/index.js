@@ -19,8 +19,8 @@ const CoordinatorProposals = () => {
   const [evid, setEvid] = useState();
 
   useEffect(() => {
-    getProjects();
     load();
+    getProjects();  
   }, []);
 
   const getProjects = async () => {
@@ -31,7 +31,7 @@ const CoordinatorProposals = () => {
     
     setData(rs);
     setProposal(rv);
-    console.log('rv', rv);
+   
   };
   
 
@@ -39,15 +39,23 @@ const CoordinatorProposals = () => {
     let rs = await getUserByRole("Evaluator");
     setEvalator(rs);
     setEvid(rs[0]._id);
+    console.log('Evaluator',rs)
   };
 
   const accept = async (id) => {
     const res = await updateIdea(id, evid);
-    getProjects();
-   // console.log(res,'rrr')
+    load();
+    getProjects();  
   };
 
 
+  const submit = async(id)=>{
+   
+    let r = await updateFinalSatusProposal(id,evid)
+    
+    load();
+    getProjects();  
+  }
 
   return (
     <>
@@ -55,7 +63,7 @@ const CoordinatorProposals = () => {
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
             <h1 className=" text-center text-2xl mt-6 font-semibold leading-6 text-gray-900">
-              Proposals
+              Proposals 
             </h1>
           </div>
         </div>
@@ -67,7 +75,7 @@ const CoordinatorProposals = () => {
            
               <div className="border-t-2 px-6 pt-5 p-5 sm:mt-3 border-gray-200 dark:border-gray-800">
                 <p className="sm:text-lg text-base font-semibold leading-4 text-gray-500 dark:text-gray-400 mt-6">
-                  {i.title}
+                  {i.title} 
                 </p>
 
                 <label
@@ -84,7 +92,7 @@ const CoordinatorProposals = () => {
                   {evalator.map((y) => (
                     <>
                       <option value={y._id}>
-                        {y.firstName} {y.lastName}
+                        {y.firstName} {y.lastName} aaa
                       </option>
                     </>
                   ))}
@@ -123,12 +131,29 @@ const CoordinatorProposals = () => {
                 {i.std2.firstName} {i.std2.lastName} <br/>
               </p>
               <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{i.user.firstName} {i.user.lastName}</p>
-              
+               
+              <label
+                  htmlFor="location"
+                  className="block text-sm font-medium leading-6 text-white"
+                >
+                  Evaluator
+                </label>
+                <select
+                  className="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={evid}
+                  onChange={(e) => setEvid(e.target.value)}
+                >
+                  {evalator.map((y) => (
+                    <>
+                      <option value={y._id}>
+                        {y.firstName} {y.lastName} 
+                      </option>
+                    </>
+                  ))}
+                </select>
+                <br></br>
               <button 
-              onClick={async()=> {
-                await updateFinalSatusProposal(i.proposal._id)
-                 load()
-              }}
+              onClick={()=>submit(i.proposal._id)}
               class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                   Accept
                   <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>

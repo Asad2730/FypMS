@@ -308,13 +308,15 @@ const user_proposals = async (req, res) => {
   
   const updateProposalStatus = async (req,res)=>{
     try{
-      let {id} = req.params;
+     
+      let {id,eid} = req.params;
       const pending = await Proposal.findByIdAndUpdate(
         { _id: id },
-        {status:'accept2'},
+        {status:'accept2',evid:eid},
         {new:true},
       );
-      res.json(pending)
+
+    res.json(pending)
 
     }catch(ex){
       res.json(ex)

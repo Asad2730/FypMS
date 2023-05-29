@@ -18,7 +18,9 @@ const Evaluatorhome = () => {
    setData(r);
    let rs = await getEvaluatorIdeas();
    setDt(rs);
-   console.log('rrr',rs)
+
+   console.log('r',r)
+   console.log('rs',rs)
   }
 
 
@@ -28,7 +30,13 @@ const Evaluatorhome = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
          {data.map((i)=>(
            
-           <div className="max-w-sm py-6 relative rounded shadow bg-white dark:bg-gray-800">
+           <div className="max-w-sm py-6 relative rounded shadow bg-white dark:bg-gray-800" 
+             onClick={()=>{
+              localStorage.setItem('StdId1',i.std1._id)
+              localStorage.setItem('StdId2',i.std2._id)
+              navigate('/interimMain');
+             }}
+           >
            <div className="px-6">
              <div className="w-20 h-20 mt-1 rounded-full absolute flex items-center justify-center bg-gray-100">
                <svg
@@ -54,7 +62,7 @@ const Evaluatorhome = () => {
              <p className="sm:text-lg text-base font-bold leading-5 text-gray-800 dark:text-gray-100 pt-4">
                {i.user.firstName} {i.user.lastName}
              </p>
-             <div className="space-x-4 mt-3">
+             {/* <div className="space-x-4 mt-3">
                <button
                  onClick={() =>{
                   localStorage.setItem('Pid',i.proposal._id)
@@ -64,7 +72,7 @@ const Evaluatorhome = () => {
                >
                  Details
                </button>
-             </div>
+             </div> */}
            </div>
          </div>
 
@@ -75,7 +83,13 @@ const Evaluatorhome = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
          {dt.map((i)=>(
            
-           <div className="max-w-sm py-6 relative rounded shadow bg-white dark:bg-gray-800">
+           <div className="max-w-sm py-6 relative rounded shadow bg-white dark:bg-gray-800"
+           onClick={()=>{
+            localStorage.setItem('StdId1',i.user._id)
+            localStorage.setItem('StdId2',i.user._id)
+            navigate('/interimMain');
+           }}
+           >
            <div className="px-6">
              <div className="w-20 h-20 mt-1 rounded-full absolute flex items-center justify-center bg-gray-100">
                <svg

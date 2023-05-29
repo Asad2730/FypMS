@@ -15,6 +15,7 @@ router.post("/",taskPlanController.taskPlan_add);
 router.post("/addIdea",taskPlanController.ideatask_add);
 router.delete("/:id",taskPlanController.taskPlan_delete);
 router.put("/:id",taskPlanController.taskPlan_update);
+router.get('/proposalId/:id',taskPlanController.proposalTasks);
 router.get("/singleTask/:id",taskPlanController.singleTask);
 router.get("/stdTask/:id",taskPlanController.studentTask);
 router.post("/update/:id",taskPlanController.changeTaskStatus);
@@ -23,5 +24,6 @@ router.get("/taskHistory/:id",taskPlanController.taskHistory);
 router.get("/getProposalsTask/:id",taskPlanController.getProposalTask);
 router.put("/updateTask/:id",taskPlanController.updateTask);
 router.get('/:m1/:m2',taskPlanController.getStdentsTasks);
+router.get('/:sid1/:sid2/:interim',taskPlanController.getInterims);
 
 module.exports = router;
