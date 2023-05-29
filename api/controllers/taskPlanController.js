@@ -593,7 +593,7 @@ const getInterims = async (req, res) => {
 
 const updateInterim = async(req,res)=>{
   try{
-    console.log('okkk')
+  
     const {id} = req.params;
     const obj = {
       performance,range,system,design,technique,skills,domain,comments,
@@ -602,7 +602,7 @@ const updateInterim = async(req,res)=>{
     } = req.body;
     
     const plan = await TaskPlan.findByIdAndUpdate({_id:id},obj)
-    console.log('okkkUpdated',plan)
+   
     res.json(plan);
 
   }catch(ex){
