@@ -55,7 +55,60 @@ const taskPlanSchema = new mongoose.Schema(
     },
     interim:{
       type:String,
-    }
+    },
+
+
+    performance:{
+      type:String,     
+    },
+    range:{
+      type:String,
+    },
+    system:{
+      type:String,
+    },
+    design:{
+      type:String,
+    },
+    technique:{
+      type:String,
+    },
+    integration:{
+      type:String,
+    },
+    skills:{
+      type:String,
+    },
+    domain:{
+      type:String,
+    },
+    comments:{
+      type:String,
+    },
+    progress:{
+      type:String,
+    },
+    demonstration:{
+      type:String,
+    },
+    conformance:{
+      type:String,
+    },
+    innovation:{
+      type:String,
+    },
+    presentation:{
+      type:String,
+    },
+    organization:{
+      type:String,
+    },
+    technical:{
+      type:String,
+    },
+    result:{
+      type:String,
+    },
   },
   {
     timestamps: true,

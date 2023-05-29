@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { downloadFile, getInterims } from "../../../DB/db";
+import { useNavigate } from "react-router-dom";
+
 
 const IntrimComponent = ({props}) => {
-  
+    
+  const navigate = useNavigate();
   const sid1 = localStorage.getItem('StdId1');
   const sid2 = localStorage.getItem('StdId2');
 
@@ -102,7 +105,12 @@ const IntrimComponent = ({props}) => {
                         </td>
                        
                         <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-900">
-                      
+                            <button onClick={()=>{
+                                localStorage.setItem('taskPlanId',data.taskPlan._id)
+                                navigate(`/${props}interim`)
+                            }}>
+                                Evaluate
+                            </button>  
                         </td>
                        
                       </tr>

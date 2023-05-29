@@ -3,6 +3,7 @@ const taskPlanController=require('../controllers/taskPlanController');
 
 
 router.get("/get/:uid",taskPlanController.taskPlans);
+router.put('/interim/:id',taskPlanController.updateInterim)
 router.get("/get",taskPlanController.getPlans);
 router.get("/taskbyId/:id",taskPlanController.getTaskHistoryByID);
 router.get("/submitedTasks/:uid",taskPlanController.submitedTasks);

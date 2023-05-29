@@ -45,6 +45,10 @@ import AcceptedIdeas from "../pages/supervisor/acceptedIdes";
 import PlanHistory from "../pages/coordinator/planHistory";
 import Supervisorideas from "../pages/supervisor/Ideas-tasks/supervisorIDeas";
 import InterimMain from "../pages/evaluator/interims";
+import Firstinterim from "../pages/evaluator/interimFirst";
+import SecondInterim from "../pages/evaluator/interimSecond";
+import Thirdinterim from "../pages/evaluator/interimThird";
+
 
 const Approutes = () => {
   return (
@@ -90,6 +94,9 @@ const Approutes = () => {
           <Route path="/evaluatorfeedback" element={<Evaluatorfeedback />} />
           <Route path="/evaluatorfeedbackform" element={<Efeedbackform />} />
           <Route path="/interimMain" element={<InterimMain/>} />
+          <Route path="/1interim" element={<Firstinterim />} />
+          <Route path="/2interim" element={<SecondInterim />} />
+          <Route path="/3interim" element={<Thirdinterim />} />
 
         </Route>
         <Route element={<Coordinatorlayout />}>

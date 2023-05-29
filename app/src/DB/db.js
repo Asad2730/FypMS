@@ -703,3 +703,21 @@ export const getInterims = async (
   }
 };
 
+
+
+export const updateInterim = async(
+  id,performance,range,system,design,technique,skills,domain,comments,
+  progress,demonstration,conformance,innovation,presentation,organization,technical,result,integration
+) =>{
+   
+  try {
+    let  obj = {performance,range,system,design,technique,skills,domain,comments,
+      progress,demonstration,conformance,innovation,presentation,organization,technical,result,integration};
+     let res = await axios.put(`${URL}taskplan/interim/${id}`,obj);
+    return res.data;
+  } catch (ex) {
+    console.log(ex);
+  }
+
+}
+

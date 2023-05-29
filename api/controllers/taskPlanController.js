@@ -590,6 +590,28 @@ const getInterims = async (req, res) => {
 };
 
 
+
+const updateInterim = async(req,res)=>{
+  try{
+    console.log('okkk')
+    const {id} = req.params;
+    const obj = {
+      performance,range,system,design,technique,skills,domain,comments,
+      progress,demonstration,conformance,innovation,presentation,organization,technical,result,
+      integration
+    } = req.body;
+    
+    const plan = await TaskPlan.findByIdAndUpdate({_id:id},obj)
+    console.log('okkkUpdated',plan)
+    res.json(plan);
+
+  }catch(ex){
+    res.json(ex.message)
+  }
+
+}
+
+
 module.exports = {
   taskPlan_all,
   taskPlan_details,
@@ -613,5 +635,6 @@ module.exports = {
   ideatask_add,
   getTaskByIdeaID,
   proposalTasks,
-  getInterims
+  getInterims,
+  updateInterim
 };
