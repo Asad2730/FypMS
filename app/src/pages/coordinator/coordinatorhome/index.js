@@ -47,15 +47,16 @@ const Coordinatorhome = () => {
           </div>
           <div className="border-t-2  px-6 pt-14 sm:mt-3 mt-8 border-gray-200 dark:border-gray-800">
             <p className="sm:text-lg text-base font-semibold leading-4 text-gray-500 dark:text-gray-400 mt-6">
-              {i.proposal.name}
+              {i.proposal.title}
             </p>
             <p className="sm:text-lg text-base font-bold leading-5 text-gray-800 dark:text-gray-100 pt-4">
-              {i.std2.firstName}  {i.std2.lastName}
-            </p>
+              {i.std1.firstName}  {i.std1.lastName}  
+            </p>          
             
             <p className="sm:text-lg text-base font-bold leading-5 text-gray-800 dark:text-gray-100 pt-4">
              {i.std2.firstName}  {i.std2.lastName}
             </p>
+            
             <div className="space-x-4 mt-3">
               <button
                 onClick={() => {

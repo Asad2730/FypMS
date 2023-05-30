@@ -529,7 +529,6 @@ export const acceptedIdeas = async(id)=>{
   return data;
 }
 
-
 export const getAllPlans = async()=>{
    
   const url = "http://localhost:8000/api/taskplan/get/";
@@ -741,3 +740,11 @@ export const addRemarksToPlans = async (id,remarks) => {
   const { data } = await axios.put(url,{remarks});
    return data; 
 };
+
+
+export const acceptedIdeasOnly = async()=>{
+  let uid = localStorage.getItem('Id');
+  let url = `${URL}idea/getx/${uid}`;
+  let {data} = await  axios.get(url);
+  return data;
+}

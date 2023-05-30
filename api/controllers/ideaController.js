@@ -106,7 +106,29 @@ const getIdeas = async (req, res) => {
   
 
 
+  const getAcceptedIdeasOnly = async (req, res) => {
+    try {
 
+     
+      const { uid } = req.params;
+      const rs = [];
+      const ideas = await Idea.find({ uid: uid,status:'ok' });
+     
+      for (let i = 0; i < ideas.length; i++) {
+        const sid = ideas[i].sid; 
+        const user = await User.findById(sid);
+        if (user) {
+          const obj = { 'ob1': ideas[i], 'ob2': user };
+          rs.push(obj);
+          
+        }
+      }
+  
+      res.json(rs);
+    } catch (ex) {
+      res.json(ex);
+    }
+  }
   
   const deleteIDea = async (req, res) => {
     try {
@@ -202,5 +224,6 @@ module.exports = {
     updateIDea,
     getAll,
     getByEid,
-    getAdminIdeas
+    getAdminIdeas,
+    getAcceptedIdeasOnly
 }

@@ -92,7 +92,7 @@ const CoordinatorProposals = () => {
                   {evalator.map((y) => (
                     <>
                       <option value={y._id}>
-                        {y.firstName} {y.lastName} aaa
+                        {y.firstName} {y.lastName} 
                       </option>
                     </>
                   ))}

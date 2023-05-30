@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { acceptedIdeas, getProposals, getUserPropsals } from "../../../DB/db";
+import { acceptedIdeasOnly, getProposals } from "../../../DB/db";
 
 const Supervisorhome = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Supervisorhome = () => {
 
 
   const loadIdeas = async()=>{
-    let idea = await acceptedIdeas(1);
+    let idea = await acceptedIdeasOnly();
     setData2(idea);
   
   }
