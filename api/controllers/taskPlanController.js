@@ -612,6 +612,51 @@ const updateInterim = async(req,res)=>{
 }
 
 
+const adminPlans = async (req, res) => {
+  try {
+    let rs = [];
+
+    const taskPlans = await TaskPlan.find({asgto:'-1'});
+    
+    for (let i = 0; i < taskPlans.length; i++) {
+      let id = taskPlans[i]["planUid"];  
+         let user = null;  
+         user = await User.findById(id);
+        // if (user) {
+          let taskPlan = taskPlans[i];
+          let data = { taskPlan, user };
+          rs.push(data);
+      
+      // }
+     
+    }
+    res.json(rs);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
+
+
+const addRemarksToPlans = async (req, res) => {
+  try {
+    
+  
+    const { id } = req.params;
+    const { remarks } = req.body;
+
+    const updatedtaskPlan = await TaskPlan.findByIdAndUpdate(
+      { _id: id },
+      { remarks: remarks},
+      { new: true },
+
+    );
+    res.json(updatedtaskPlan);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+
 module.exports = {
   taskPlan_all,
   taskPlan_details,
@@ -636,5 +681,7 @@ module.exports = {
   getTaskByIdeaID,
   proposalTasks,
   getInterims,
-  updateInterim
+  updateInterim,
+  adminPlans,
+  addRemarksToPlans
 };

@@ -57,7 +57,9 @@ const taskPlanSchema = new mongoose.Schema(
       type:String,
     },
 
-
+    remarks:{
+      type:String,
+    },
     performance:{
       type:String,     
     },

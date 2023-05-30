@@ -32,7 +32,7 @@ import { NavLink, Outlet } from "react-router-dom";
 const navigation = [
   { name: "Dashboard", to: "/hodhome", icon: HomeIcon, current: false },
   { name: "Feedback", to: "/feedback", icon: UsersIcon, current: false },
-  { name: "Remarks", to: "/projectdetail", icon: HomeIcon, current: false },
+  { name: "Remarks", to: "/HodPlans", icon: HomeIcon, current: false },
   { name: "Users", to: "/users", icon: FolderIcon, current: false },
   { name: "Task-History", to: "/taskhistoryHod", icon: UsersIcon, current: false },
 ];

@@ -3,6 +3,7 @@ const taskPlanController=require('../controllers/taskPlanController');
 
 
 router.get("/get/:uid",taskPlanController.taskPlans);
+router.get("/getAdmin",taskPlanController.adminPlans);
 router.put('/interim/:id',taskPlanController.updateInterim)
 router.get("/get",taskPlanController.getPlans);
 router.get("/taskbyId/:id",taskPlanController.getTaskHistoryByID);
@@ -20,6 +21,7 @@ router.get('/proposalId/:id',taskPlanController.proposalTasks);
 router.get("/singleTask/:id",taskPlanController.singleTask);
 router.get("/stdTask/:id",taskPlanController.studentTask);
 router.post("/update/:id",taskPlanController.changeTaskStatus);
+router.put("/update/:id",taskPlanController.addRemarksToPlans);
 router.post("/updatePlan/:id",taskPlanController.changePlanStatus);
 router.get("/taskHistory/:id",taskPlanController.taskHistory);
 router.get("/getProposalsTask/:id",taskPlanController.getProposalTask);

@@ -1,20 +1,19 @@
 import React,{useState} from "react";
+import { addRemarksToPlans } from "../../../DB/db";
 
-import { updateTask} from '../../../DB/db';
 
 
-const EvaluteformHod = () => {
+
+const AddPlanRemarks = () => {
   
   const [remarks,setRemarks] = useState();
-  let id = localStorage.getItem('RID');
-  let marks = localStorage.getItem('MARKS');
+  let id = localStorage.getItem('planID');
+  
 
   const submit = async() =>{
-     
-      let r = await updateTask(id,marks,remarks)
-      if(r){
-        setRemarks('')
-      }
+   let r =  await addRemarksToPlans(id,remarks);
+   console.log(r);
+   setRemarks('');
    }
 
   return (
@@ -73,4 +72,4 @@ const EvaluteformHod = () => {
   );
 };
 
-export default EvaluteformHod;
+export default AddPlanRemarks;

@@ -721,3 +721,23 @@ export const updateInterim = async(
 
 }
 
+export const adminIdeas = async()=>{
+  let url = `${URL}idea/admin/123`;
+  let {data} = await  axios.get(url);
+  return data;
+}
+
+
+export const getAdminPlans = async () => {
+ 
+  const url = `${URL}taskplan/getAdmin`;
+  const { data } = await axios.get(url);
+   return data; 
+};
+
+
+export const addRemarksToPlans = async (id,remarks) => {
+  const url = `${URL}taskplan/update/${id}`;
+  const { data } = await axios.put(url,{remarks});
+   return data; 
+};

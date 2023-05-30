@@ -94,7 +94,7 @@ const getIdeas = async (req, res) => {
         if (user) {
           const obj = { 'ob1': ideas[i], 'ob2': user };
           rs.push(obj);
-          console.log('okkk',rs)
+          
         }
       }
   
@@ -171,6 +171,27 @@ const getIdeas = async (req, res) => {
   }
 
 
+  const getAdminIdeas = async (req, res) => {
+    try {   
+      
+      const rs = [];
+      const ideas = await Idea.find();   
+      for (let i = 0; i < ideas.length; i++) {
+        const sid = ideas[i].sid; 
+        const user = await User.findById(sid);
+        if (user) {
+          const obj = { 'ob1': ideas[i], 'ob2': user };
+          rs.push(obj);
+          
+        }
+      }
+  
+      res.json(rs);
+    } catch (ex) {
+      res.json(ex);
+    }
+  }
+
 
 module.exports = {
     add,
@@ -180,5 +201,6 @@ module.exports = {
     deleteIDea,
     updateIDea,
     getAll,
-    getByEid
+    getByEid,
+    getAdminIdeas
 }

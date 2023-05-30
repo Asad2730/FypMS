@@ -67,11 +67,18 @@ Description                  </th>
                   >
                    SolutionFile     
                   </th>
+                  {/* <th
+                    scope="col"
+                    className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  >
+                   Marks      
+                  </th> */}
                    <th
                     scope="col"
                     className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                   Remarks                  </th>
+                   Remarks      
+                  </th>
                   <th scope="col" className="relative whitespace-nowrap py-3.5 pl-3 pr-4 sm:pr-0">
                     <span className="sr-only">Edit</span>
                   </th>
@@ -101,7 +108,7 @@ Description                  </th>
                     {transaction.taskPlan.solFile}
                     </button>
                     
-                    <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.taskPlan.marks}</td>
+                    {/* <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.taskPlan.marks}</td> */}
                     <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{transaction.taskPlan.remarks}</td>
 
                     <td className="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">

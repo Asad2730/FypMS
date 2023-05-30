@@ -48,6 +48,8 @@ import InterimMain from "../pages/evaluator/interims";
 import Firstinterim from "../pages/evaluator/interimFirst";
 import SecondInterim from "../pages/evaluator/interimSecond";
 import Thirdinterim from "../pages/evaluator/interimThird";
+import HodPlans from "../pages/Hod/planRemarks/planRemarks";
+import AddPlanRemarks from "../pages/Hod/planRemarks/addplanRemarks";
 
 
 const Approutes = () => {
@@ -63,6 +65,8 @@ const Approutes = () => {
           <Route path="/adduser" element={<Adduser />} />
           <Route path="/taskhistoryHod" element={<TaskhistoryHod/>}/>
           <Route path="/remarksHod" element={<EvaluteformHod/>} />
+          <Route path="/HodPlans" element={<HodPlans/>}/>
+          <Route path="/hodPlanRemarksForm" element={<AddPlanRemarks/>}/>
         </Route>
         <Route element={<StudentLayout />}>
           <Route path="/studenthome" element={<StudentHome />} />
