@@ -74,6 +74,129 @@ const PlanHistory = () => {
                     >
                      
                     </th>
+
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                     
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
@@ -101,9 +224,92 @@ const PlanHistory = () => {
                        className="relative whitespace-nowrap py-4  text-right text-sm font-medium sm:pr-0">
                       {person.taskPlan.solFile}
                       </td>
+
+                      {/* here */}
                       <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
-                       
+                      {person?.taskPlan?.comments}
                       </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.conformance}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.demonstration}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.design}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.presentation}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.progress}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.performance}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.system}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.organization}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.remarks}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.range}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.progress}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.presentation}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.performance}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.organization}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.innovation}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.domain}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.design}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.demonstration}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.conformance}
+                      </td>
+
+                      <td className="relative whitespace-nowrap py-4 text-right text-sm font-medium sm:pr-0">
+                      {person?.taskPlan?.comments}
+                      </td>
+
                     </tr>
                   ))}
                 </tbody>
