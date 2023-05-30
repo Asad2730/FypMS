@@ -5,6 +5,8 @@ import { downloadFile,getAllPlans,planTask ,updatePlanStatus} from "../../../DB/
 const Plans = () => {
   
   const [getPlans, setgetPlans] = useState([]);
+  const [file,setFile] = useState('')
+  
   const getmyPlans = async () => {
     // const url = `http://localhost:8000/api/taskplan/get/${localStorage.getItem('Id')}`;
     // const { data } = await axios.get(url);
@@ -86,6 +88,9 @@ const Plans = () => {
                 <th scope="col" className="relative py-3.5 pl-3">
                   <span className="sr-only">Download</span>
                 </th>
+                <th scope="col" className="relative py-3.5 pl-3">
+                  <span className="sr-only">Submit</span>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -130,6 +135,13 @@ const Plans = () => {
                       submit(plans._id,e.target.files[0])
                     }}
                   />
+                    </td>
+                    
+                    <td className="relative py-4 space-x-4 text-right text-sm font-medium">
+                      <button 
+                       className=" bg-green-600 hover:bg-green-500 text-white px-2 py-2 rounded-lg ">
+                        Submit
+                      </button>                     
                     </td>
                   </tr>
                 )

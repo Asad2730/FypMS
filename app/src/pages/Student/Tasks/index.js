@@ -134,6 +134,13 @@ const Studentstasks = () => {
                     }}
                   />
                     </td>
+
+                    <td className="relative py-4 space-x-4 text-right text-sm font-medium">
+                      <button 
+                       className=" bg-green-600 hover:bg-green-500 text-white px-2 py-2 rounded-lg ">
+                        Submit
+                      </button>                     
+                    </td>
                   </tr>
            
               )}
