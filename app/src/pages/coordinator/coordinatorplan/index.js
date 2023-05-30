@@ -197,7 +197,9 @@ const Coordinatorplans = () => {
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           {plan.taskPlan.deadline}
                         </td>
-                        <td></td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {plan?.taskPlan?.remarks}
+                        </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           {plan.taskPlan.status != "completed" ? (
                             <>
