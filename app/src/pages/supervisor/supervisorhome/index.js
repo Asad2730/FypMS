@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { acceptedIdeas, getUserPropsals } from "../../../DB/db";
+import { acceptedIdeas, getProposals, getUserPropsals } from "../../../DB/db";
 
 const Supervisorhome = () => {
   const navigate = useNavigate();
@@ -16,9 +16,10 @@ const Supervisorhome = () => {
   }, []);
 
   const loadData = async () => {
-    let res = await getUserPropsals();
+   let res =  await getProposals('accept');
+   //let res = await getUserPropsals();
     setData(res);
-   
+    console.log('ok',res)
   };
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteTask, getIDeaTaskById } from "../../../DB/db";
+import { deleteTask, downloadFile, getIDeaTaskById } from "../../../DB/db";
 
 const Supervisorideas = () => {
   const navigate = useNavigate();
@@ -77,6 +77,13 @@ const Supervisorideas = () => {
                     >
                       File
                     </th>
+
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Solution File
+                    </th>
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
@@ -104,8 +111,15 @@ const Supervisorideas = () => {
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {person.taskPlan.description}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <td 
+                       onClick={async()=>await downloadFile(person.taskPlan.file)}
+                       className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {person.taskPlan.file}
+                      </td>
+                      <td 
+                         onClick={async()=>await downloadFile(person.taskPlan.solFile)}
+                       className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {person.taskPlan.solFile}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {person.taskPlan.deadline}

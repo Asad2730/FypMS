@@ -168,11 +168,11 @@ export const downloadFile = async (fileName) => {
 export const getProposals = async (status) => {
   try {
     let id  = localStorage.getItem('Id');
-    console.log(`${id}`);
     const response = await axios.get(`${URL}proposal/getProposals/${status}/${id}`);
     return response.data;
   } catch (ex) {
     console.log("Error:", ex);
+   
   }
 };
 
