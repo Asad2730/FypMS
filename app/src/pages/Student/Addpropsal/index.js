@@ -163,7 +163,7 @@ const Addproposal = () => {
                  
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                 PhoneNo member 2
+                 PhoneNo member 1
                 </label>
                 <div className="mt-2">
                   <input

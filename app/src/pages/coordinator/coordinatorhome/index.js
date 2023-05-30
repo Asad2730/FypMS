@@ -15,7 +15,6 @@ const Coordinatorhome = () => {
   const load = async() =>{
     let rs = await allProposal();
     setData(rs);
-    console.log('rs',rs)    
   }
 
   return (
