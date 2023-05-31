@@ -6,7 +6,7 @@ const Studentstasks = () => {
   const [studentTasks, setstudentTasks] = useState([]);
   const [data, setData] = useState([]);
   
-  // const [proposalFile,setProposalFile] = useState();
+   const [proposalFile,setProposalFile] = useState();
   
 
   useEffect(() => {
@@ -19,11 +19,11 @@ const Studentstasks = () => {
     
   };
 
-  const submit = async (id,proposalFile) => {
+  const submit = async (id,proposalFiles) => {
     console.log("id", id);
     // const uid = localStorage.getItem('Id');
     // const planTaskId = id;
-     await updateTaskStatus(id, "completed",proposalFile);
+     await updateTaskStatus(id, "completed",proposalFiles);
     // await planTask(uid,planTaskId,proposalFile);
     load();
   };
@@ -129,14 +129,15 @@ const Studentstasks = () => {
                     name="Submit"           
                     className=" bg-green-800 hover:bg-gray-600 text-white px-2 py-2 rounded-lg "
                     onChange={(e) => {
-                     // setProposalFile(e.target.files[0])
-                      submit(task.taskPlan._id,e.target.files[0])
+                      setProposalFile(e.target.files[0])
+                     // submit(task.taskPlan._id,e.target.files[0])
                     }}
                   />
                     </td>
 
                     <td className="relative py-4 space-x-4 text-right text-sm font-medium">
                       <button 
+                      onClick={()=>submit(task.taskPlan._id,proposalFile)}
                        className=" bg-green-600 hover:bg-green-500 text-white px-2 py-2 rounded-lg ">
                         Submit
                       </button>                     

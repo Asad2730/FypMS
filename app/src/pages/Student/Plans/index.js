@@ -131,14 +131,16 @@ const Plans = () => {
                     type="file"
                     name="Submit"           
                     className=" bg-green-800 hover:bg-gray-600 text-white px-2 py-2 rounded-lg "
-                    onChange={(e) => {                  
-                      submit(plans._id,e.target.files[0])
+                    onChange={(e) => {    
+                      setFile(e.target.files[0])              
+                      //submit(plans._id,e.target.files[0])
                     }}
                   />
                     </td>
                     
                     <td className="relative py-4 space-x-4 text-right text-sm font-medium">
                       <button 
+                      onClick={()=> submit(plans._id,file)}
                        className=" bg-green-600 hover:bg-green-500 text-white px-2 py-2 rounded-lg ">
                         Submit
                       </button>                     

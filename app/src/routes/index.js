@@ -50,6 +50,7 @@ import SecondInterim from "../pages/evaluator/interimSecond";
 import Thirdinterim from "../pages/evaluator/interimThird";
 import HodPlans from "../pages/Hod/planRemarks/planRemarks";
 import AddPlanRemarks from "../pages/Hod/planRemarks/addplanRemarks";
+import PlanDetails from "../pages/coordinator/planHistory/planDetails";
 
 
 const Approutes = () => {
@@ -124,6 +125,10 @@ const Approutes = () => {
           <Route
             path="/coordinatorproposals"
             element={<CoordinatorProposals />}
+          />
+          <Route
+            path="/planDetails"
+            element={<PlanDetails/>}
           />
         </Route>
       </Routes>
