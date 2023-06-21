@@ -38,6 +38,7 @@ const navigation = [
   { name: "Users", to: "/addperson", icon: UsersIcon, current: false },
   // { name: "Task-History", to: "/taskhistory", icon: UsersIcon, current: false },
   { name: "Plan-History", to: "/planHistory", icon: UsersIcon, current: false },
+  
 
   {
     name: "Proposal",
@@ -52,6 +53,8 @@ const navigation = [
     current: false,
   },
   { name: "PlansGraph", to: "/myPieChart", icon: UsersIcon, current: false },
+  { name: "Plan for Supervisor", to: "/CplantoS", icon: UsersIcon, current: false },
+  { name: "Results", to: "/results", icon: UsersIcon, current: false },
 ];
 
 const userNavigation = [{ name: "Sign out", to: "/" }];

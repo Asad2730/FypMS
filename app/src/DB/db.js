@@ -110,6 +110,12 @@ export const addProposal = async (
   proposalFile,
   phoneNo1,
   phoneNo2,
+  // changes
+  background,
+  objectives,
+  complexR,
+  tools,
+  deleverables
 ) => {
   try {
     let data = new FormData();
@@ -121,6 +127,12 @@ export const addProposal = async (
     data.append("uid", localStorage.getItem("Id"));
     data.append('phoneNo1',phoneNo1);
     data.append('phoneNo2',phoneNo2);
+    // changes
+    data.append('background',background);
+    data.append('objectives',objectives);
+    data.append('complexR',complexR);
+    data.append('tools',tools);
+    data.append('deleverables',deleverables);
 
     let response = await axios.post(`${URL}proposal/`, data, {
       headers: { "Content-Type": "multipart/form-data" },
@@ -133,6 +145,184 @@ export const addProposal = async (
     console.log("Error:", ex);
   }
 };
+//////////////////////////////////////////
+
+export const getUserProposalTitles = async (supervisorId) => {
+  try {
+    let response = await axios.get(
+      `${URL}proposal/${localStorage.getItem("Id")}`
+    );
+    
+    // Filter the response data to get only the project titles where supervisorId matches 'x'
+    let filteredData = response.data.filter(proposal => proposal.proposal.supervisorId === supervisorId);
+    
+    // Extract only the project titles from the filtered data
+    let titles = filteredData.map(proposal => proposal.proposal.title);
+    
+    console.log("Filtered Titles:", titles);
+    return titles;
+  } catch (ex) {
+    console.log("Error:", ex);
+  }
+};
+
+
+////////////////////////////////////////
+export const addPForm = async (title, telephone, email, designation, comments, supervisorId) => {
+  try {
+    const response = await axios.post(`${URL}pforms/`, {
+      
+      title,
+      telephone,
+      email,
+      designation,
+      comments,
+      supervisorId,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error adding PForm:', error);
+    throw error;
+  }
+};
+
+
+
+
+export const getAllPForms = async () => {
+  try {
+    const response = await axios.get(`${URL}pforms/`);
+    return response.data;
+  } catch (error) {
+    console.error('Error getting all PForms:', error);
+    throw error;
+  }
+};
+
+export const getPFormById = async (id) => {
+  try {
+    const response = await axios.get(`${URL}pforms/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error getting PForm by ID:', error);
+    throw error;
+  }
+};
+
+export const getPFormByTitle = async (title) => {
+  try {
+    const response = await axios.get(`${URL}pforms/title/${title}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error getting PForm by title:', error);
+    throw error;
+  }
+};
+
+
+
+export const updatePForm = async (id, title, telephone, email, designation, comments) => {
+  try {
+    const response = await axios.put(`${URL}/pforms/${id}`, {
+      title,
+      telephone,
+      email,
+      designation,
+      comments,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating PForm:', error);
+    throw error;
+  }
+};
+
+export const deletePForm = async (id) => {
+  try {
+    const response = await axios.delete(`${URL}/pforms/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting PForm:', error);
+    throw error;
+  }
+};
+
+
+/////////////////////////////////////////////
+
+
+// export const createPform = async (pformData) => {
+//   try {
+//     const response = await axios.post(`${URL}setsproposals`, pformData);
+//     return response.data;
+//   } catch (error) {
+//     // Handle error
+//     console.error('Error creating pform:', error);
+//     throw error;
+//   }
+// };
+
+// Function to get all pforms
+// export const getAllPforms = async () => {
+//   try {
+//     const response = await axios.get(`${URL}/getsproposals`);
+//     return response.data;
+//   } catch (error) {
+//     // Handle error
+//     console.error('Error getting all pforms:', error);
+//     throw error;
+//   }
+// };
+
+////////////////////////////////////////
+// changes
+// export const createPform = async (
+//   title,
+//   telephone,
+//   email,
+//   designation,
+//   comments,
+// ) => {
+//   try {
+//     let data = new FormData();
+//     data.append("title", title);
+//     data.append("telephone", telephone);
+//     data.append("email", email);
+//     data.append("designation", designation);
+//     data.append("comments", comments);
+//     data.append("uid", localStorage.getItem("Id"));
+//     // changes
+
+//     let response = await axios.post(`${URL}setsproposals`, data, {
+//       headers: { "Content-Type": "multipart/form-data" },
+//     });
+
+//     console.log("DATA", response.data);
+
+//     return response.data;
+//   } catch (ex) {
+//     console.log("Error:", ex);
+//   }
+// };
+
+
+// Function to remove a proposal
+export const removeProposal = async (id) => {
+  try {
+    const response = await axios.delete(`${URL}proposals/${id}`);
+    console.log('Proposal removed:', response.data);
+    // Perform any additional actions after successful removal
+  } catch (error) {
+    console.error('Error removing proposal:', error);
+    // Handle error case
+  }
+};
+
+// Usage
+removeProposal('proposal_id');
+
+
+
 
 export const getUserPropsals = async () => {
   try {
@@ -145,6 +335,34 @@ export const getUserPropsals = async () => {
     console.log("Error:", ex);
   }
 };
+//changes
+export const getUserProposals_id = async () => {
+  try {
+    let response = await axios.get(`${URL}proposal/${localStorage.getItem("Id")}`);
+    console.log("res", response.data);
+    
+    const supervisorId = response.data.supervisorId;
+    const proposals = response.data.proposals;
+
+    // Find the project title where Sid is equal to the supervisorId
+    const project = proposals.find((proposal) => proposal.Sid === supervisorId);
+
+    if (project) {
+      const projectTitle = project.title;
+      console.log("Project Title:", projectTitle);
+      return {
+        supervisorId,
+        proposals,
+        projectTitle
+      };
+    } else {
+      console.log("Project not found for the given supervisorId");
+    }
+  } catch (ex) {
+    console.log("Error:", ex);
+  }
+};
+
 
 export const downloadFile = async (fileName) => {
   try {
@@ -167,14 +385,33 @@ export const downloadFile = async (fileName) => {
 
 export const getProposals = async (status) => {
   try {
+    console.log('here')
     let id  = localStorage.getItem('Id');
     const response = await axios.get(`${URL}proposal/getProposals/${status}/${id}`);
+    console.log(response)
     return response.data;
   } catch (ex) {
     console.log("Error:", ex);
    
   }
 };
+////////////////////////////////////
+
+export const getProposals_title = async (status) => {
+  try {
+    console.log('here')
+    let id  = localStorage.getItem('Id');
+    const response = await axios.get(`${URL}proposal/getProposals/${id}`);
+    console.log(response)
+    return response.data;
+  } catch (ex) {
+    console.log("Error:", ex);
+   
+  }
+};
+
+
+////////////////////////////////////
 
 export const changeProposalStatus = async (id, status) => {
   try {
@@ -623,7 +860,12 @@ export const allProposal = async () => {
   try {
 
     let rs = await axios.get(`${URL}proposal/all`);
-    return rs.data;
+    console.log('all proposals', rs)
+    let response = await axios.post(`${URL}proposal/calculate-averages`, {
+      projectNames: rs?.data?.map(proposal => proposal?.proposal?.title)
+    });
+    // return {...rs.data, averages: response?.data?.averages};
+    return {proposals: rs.data, averages: response?.data?.averages}
   } catch (ex) {
     console.log(ex);
   }
@@ -748,3 +990,108 @@ export const acceptedIdeasOnly = async()=>{
   let {data} = await  axios.get(url);
   return data;
 }
+
+
+export const createCplantoS = async (name, deadline) => {
+  try {
+    const data = {
+      name,
+      deadline,
+    };
+    const res = await axios.post(`${URL}cplantos/`, data);
+    return res.data;
+  } catch (ex) {
+    console.log("Error", ex);
+  }
+};
+
+export const getCplantoS = async () => {
+  try {
+    const res = await axios.get(`${URL}cplantos/`);
+    return res.data;
+  } catch (ex) {
+    console.log("Error", ex);
+  }
+};
+
+
+
+export const addCevaluation = async (cevaluationData) => {
+  try {
+    const response = await axios.post(`${URL}cevaluation/`, cevaluationData);
+    return response.data;
+  } catch (error) {
+    console.error('Error adding Cevaluation:', error);
+    throw error;
+  }
+};
+
+export const getCevaluations = async () => {
+  try {
+    const response = await axios.get(`${URL}cevaluation/`);
+    return response.data;
+  } catch (error) {
+    console.error('Error getting Cevaluations:', error);
+    throw error;
+  }
+};
+
+export const getCevaluationsByEname = async (ename) => {
+  try {
+    const response = await axios.get(`${URL}cevaluation/cevaluations?Ename=${ename}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error getting Cevaluations by Ename:', error);
+    throw error;
+  }
+};
+
+export const getCevaluationsBytitle = async (ptitle) => {
+  try {
+    const response = await axios.get(`${URL}cevaluation/cevaluations?ptitle=${ptitle}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error getting Cevaluations by Ename:', error);
+    throw error;
+  }
+};
+
+export const getCplantoSByName = async (name) => {
+  try {
+    const res = await axios.get(`${URL}cplantos/cplantos?name=${name}`);
+    return res.data;
+  } catch (error) {
+    console.error('Error getting CplantoS by name:', error);
+    throw error;
+  }
+};
+
+export const addResult = async (resultData) => {
+  try {
+    const response = await axios.post(`${URL}results/`, resultData);
+    return response.data;
+  } catch (error) {
+    console.error('Error adding Result:', error);
+    throw error;
+  }
+};
+
+export const getResults = async () => {
+  try {
+    const response = await axios.get(`${URL}results/`);
+    return response.data;
+  } catch (error) {
+    console.error('Error getting Results:', error);
+    throw error;
+  }
+};
+
+export const updateResult = async (id, resultData) => {
+  try {
+    const response = await axios.put(`${URL}results/${id}`, resultData);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating Result:', error);
+    throw error;
+  }
+};

@@ -21,9 +21,17 @@ const ideaRoutes=require('./routes/idea');
 
 const planTask=require('./routes/plan_Task'); 
 
+const pformRoutes = require('./routes/pform');
+// change
+const cplantoS = require('./routes/cplantos')
+const cevaluation = require('./routes/cevaluation')
+const result = require('./routes/results')
+
 //connection String
 dotenv.config();
-const uri = 'mongodb+srv://abubakar80187:404Urbanloop@cluster0.6vwfolu.mongodb.net/?retryWrites=true&w=majority'; // Replace with your own URI
+// const uri = 'mongodb+srv://abubakar80187:404Urbanloop@cluster0.6vwfolu.mongodb.net/?retryWrites=true&w=majority'; // Replace with your own URI
+// const uri ='mongodb+srv://mfaizanullah336:E2hhetVa49AJ0aER@clusterfyp.wxgvxgg.mongodb.net/'
+const uri = 'mongodb://127.0.0.1:27017/'
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB!'))
@@ -51,6 +59,11 @@ app.use('/api/remarks',remarksRoutes)
 app.use('/api/proposal',proposalRoutes)
 app.use('/api/idea',ideaRoutes)
 app.use('/api/planTask',planTask)
+app.use('/api/pforms', pformRoutes);
+// change
+app.use('/api/cplantos', cplantoS);
+app.use('/api/cevaluation', cevaluation);
+app.use('/api/results', result)
 
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 

@@ -52,6 +52,30 @@ import HodPlans from "../pages/Hod/planRemarks/planRemarks";
 import AddPlanRemarks from "../pages/Hod/planRemarks/addplanRemarks";
 import PlanDetails from "../pages/coordinator/planHistory/planDetails";
 
+import ProposalForms from "../pages/supervisor/proposalForm";
+import Cplantosupervisor from "../pages/supervisor/cplantosupervisor";
+
+
+import Splandetails from "../pages/coordinator/splandetails";
+
+import Details from "../pages/supervisor/task/details";
+import DetailsC from "../pages/coordinator/coordinatorproposals/details";
+
+import ProposalForms_idea from "../pages/Student/ideas/proposalform_idea";
+import CplantoS from "../pages/coordinator/supervisorsplan/index";
+
+
+import Cevaluation from "../pages/supervisor/cplantosupervisor/Cevaluation";
+
+import Results from "../pages/coordinator/results/index"
+
+import Rdetails from "../pages/coordinator/results/details"
+
+import HODtaskhistory from "../pages/Hod/taskhistory/index"
+
+import HODresult from "../pages/Hod/result/details"
+
+
 
 const Approutes = () => {
   return (
@@ -64,10 +88,12 @@ const Approutes = () => {
           <Route path="/users" element={<Users />} />
           <Route path="/projectdetail" element={<ProjectDetail />} />
           <Route path="/adduser" element={<Adduser />} />
-          <Route path="/taskhistoryHod" element={<TaskhistoryHod/>}/>
+          {/* <Route path="/taskhistoryHod" element={<TaskhistoryHod/>}/> */}
           <Route path="/remarksHod" element={<EvaluteformHod/>} />
           <Route path="/HodPlans" element={<HodPlans/>}/>
           <Route path="/hodPlanRemarksForm" element={<AddPlanRemarks/>}/>
+          <Route path="/hodtaskhistory" element={<HODtaskhistory/>}/> 
+          <Route path="/hodresult" element={<HODresult/>}/>
         </Route>
         <Route element={<StudentLayout />}>
           <Route path="/studenthome" element={<StudentHome />} />
@@ -75,6 +101,7 @@ const Approutes = () => {
           <Route path="/plans" element={<Plans />} />
           <Route path="/tasks" element={<Studentstasks />} />
           <Route path="/ideas" element={<Studentideas />} />
+          <Route path="/proposalform_idea" element={<ProposalForms_idea />} />
         </Route>
 
         <Route element={<SupervisorLayout />}>
@@ -89,6 +116,10 @@ const Approutes = () => {
           <Route path="/tasksSubmited" element={<SubmittedTasks/>} />
           <Route path="/acceptedIdeas" element={<AcceptedIdeas/>} />
           <Route path="/idea-tasks" element={<Supervisorideas/>}/>
+          <Route path="/proposalForms" element={<ProposalForms/>} />
+          <Route path="/cplantoSupervisor" element={<Cplantosupervisor/>} />
+          <Route path="/details" element={<Details/>} />
+          <Route path="/Cevaluation" element={<Cevaluation/>} />
         </Route>
 
         <Route element={<Evaluatorlayout />}>
@@ -108,11 +139,15 @@ const Approutes = () => {
           <Route path="/coordinatorhome" element={<Coordinatorhome />} />
           <Route path="/coordinatorplan" element={<Coordinatorplans />} />
           <Route path="/addperson" element={<Addperson />} />
+          <Route path="/rdetails" element={<Rdetails/>} />
           
           <Route path="/myPieChart" element={<MyPieChart />} />
+          <Route path="/splandetails" element={<Splandetails />} />
 
           <Route path="/taskhistory" element={<Taskhistory />} />
           <Route path="/planHistory" element={<PlanHistory />} />
+          <Route path="/proposaldetails" element={<DetailsC/>} />
+          <Route path="/results" element={<Results/>} />
           <Route
             path="/coordinatorfeedback"
             element={<Coordinatorfeedback />}
@@ -129,6 +164,10 @@ const Approutes = () => {
           <Route
             path="/planDetails"
             element={<PlanDetails/>}
+          />
+          <Route
+            path="/CplantoS"
+            element={<CplantoS/>}
           />
         </Route>
       </Routes>

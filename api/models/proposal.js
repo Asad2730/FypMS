@@ -39,10 +39,34 @@ const proposalSchema = new mongoose.Schema(
       },
       phoneNo1:{
         type:String,
+        require:true
       },
       phoneNo2:{
         type:String,
-      }
+        require:true
+      },
+      
+      // changes here 
+      background: {
+        type: String,
+        required: true,
+      }, 
+      objectives: {
+        type: String,
+        required: true,
+      }, 
+      complexR: {
+        type: String,
+        required: true,
+      }, 
+      tools: {
+        type: String,
+        required: true,
+      }, 
+      deleverables: {
+        type: String,
+        required: true,
+      },  
   },
   {
     timestamps: true,

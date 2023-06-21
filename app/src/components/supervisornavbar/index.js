@@ -21,6 +21,8 @@ const navigation = [
   { name: "Tasks", to: "/tasksSubmited", icon: HomeIcon, current: false },
   // { name: "addStudent", to: "/addStudent", icon: HomeIcon, current: false },
   { name: "Ideas", to: "/acceptedIdeas", icon: HomeIcon, current: false },
+  // { name: "Proposal Form", to: "/proposalForms", icon: HomeIcon, current: false },
+  { name: "Coordinators Plan", to: "/cplantoSupervisor", icon: HomeIcon, current: false },
  // { name: "idea-tasks", to: "/idea-tasks", icon: HomeIcon, current: false },
 ];
 

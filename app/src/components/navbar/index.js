@@ -34,7 +34,8 @@ const navigation = [
   { name: "Feedback", to: "/feedback", icon: UsersIcon, current: false },
   { name: "Remarks", to: "/HodPlans", icon: HomeIcon, current: false },
   { name: "Users", to: "/users", icon: FolderIcon, current: false },
-  { name: "Task-History", to: "/taskhistoryHod", icon: UsersIcon, current: false },
+  // { name: "Task-History", to: "/taskhistoryHod", icon: UsersIcon, current: false },
+  { name: "Result", to: "/hodresult", icon: UsersIcon, current: false },
 ];
 
 const userNavigation = [{ name: "Sign out", to: "/" }];

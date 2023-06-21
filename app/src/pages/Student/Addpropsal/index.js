@@ -1,9 +1,12 @@
 import React,{useState,useEffect} from "react";
 import {getUserByRole,addProposal} from '../../../DB/db'
 
+import { useNavigate } from "react-router-dom";
+
 
 const Addproposal = () => {
 
+  const navigate = useNavigate()
   const[supervisors,setSupervisors] = useState([]);
 
   const[students,setStudents] = useState([]);
@@ -15,6 +18,12 @@ const Addproposal = () => {
   const [proposalFile,setProposalFile] = useState();
   const [phoneNo1,setPhoneNO1] = useState();
   const [phoneNo2,setPhoneNO2] = useState();
+  // changes
+  const [background,setbackground] = useState();
+  const [objectives,setobjectives] = useState();
+  const [complexR,setcomplexR] = useState();
+  const [tools,settools] = useState();
+  const [deleverables,setdeleverables] = useState();
    
   useEffect(()=>{
       getSupervisors()
@@ -36,8 +45,9 @@ const Addproposal = () => {
     try{
 
     let response = await addProposal(title,localStorage.getItem('Id'),member2,
-    supervisorId,proposalFile,phoneNo1,phoneNo2); 
-   
+    supervisorId,proposalFile,phoneNo1,phoneNo2,complexR,background,objectives,tools,deleverables); 
+    navigate("/studenthome")
+    console.log(response)
      if(response){
       setTitle('')
       setMember1('')
@@ -46,6 +56,12 @@ const Addproposal = () => {
       setProposalFile('')
       setPhoneNO1('')
       setPhoneNO2('')
+      //changes
+      setbackground('')
+      setobjectives('')
+      setcomplexR('')
+      settools('')
+      setdeleverables('')
      }
     }catch(ex){
        console.log(ex)
@@ -192,6 +208,88 @@ const Addproposal = () => {
                   />
                 </div>
               </div>
+
+              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                <label
+                 
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Give a brief description of related work/background study of your
+                </label>
+                <div className="mt-2">
+                <textarea
+                onChange={(e) => setbackground(e.target.value)}
+            id="comments"
+            className="block w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+          ></textarea>
+                </div>
+              </div>
+              
+              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                <label
+                 
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                 Project Objectives
+                </label>
+                <div className="mt-2">
+                <textarea
+              onChange={(e) => setobjectives(e.target.value)}
+            id="comments"
+            className="block w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+          ></textarea>
+                </div>
+              </div>
+
+              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                <label
+                 
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                 Complex Engineering Requirements
+                </label>
+                <div className="mt-2">
+                <textarea
+              onChange={(e) => setcomplexR(e.target.value)}
+            id="comments"
+            className="block w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+          ></textarea>
+                </div>
+              </div>
+
+              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                <label
+                 
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                 Tools and Technologies
+                </label>
+                <div className="mt-2">
+                <input
+                    type="text"
+                    className="block p-2  w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Tools and Technologies"
+                    onChange={(e) => settools(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                <label
+                 
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                 Delverables
+                </label>
+                <div className="mt-2">
+                <textarea
+              onChange={(e) => setdeleverables(e.target.value)}
+            id="comments"
+            className="block w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+          ></textarea>
+                </div>
+              </div>
+
 
             </div>
 

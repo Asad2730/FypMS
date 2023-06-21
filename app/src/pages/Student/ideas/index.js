@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { downloadFile, submitIdea } from "../../../DB/db";
 
 const Studentideas = () => {
+  const navigate = useNavigate();
   const [projectIdeas, setprojectIdeas] = useState([]);
   const getIdeas = async () => {
     const url = "http://localhost:8000/api/idea/";
@@ -22,9 +24,11 @@ const Studentideas = () => {
 
   const submit = async(id,file)=>{
    
-    let res = await submitIdea(id,file);
+    // let res = await submitIdea(id,file);
    
     getIdeas();
+    navigate('/proposalform_idea')
+    
   }
 
   return (
@@ -84,16 +88,25 @@ const Studentideas = () => {
                       className=" bg-green-600 hover:bg-green-500 text-white px-2 py-2 rounded-lg "
                     >
                       Download
+                      
+                    </button>
+                    <button
+                      onClick={() => submit(pideas._id)}
+                      className=" bg-green-600 hover:bg-green-500 text-white px-2 py-2 rounded-lg "
+                    >
+                      Apply
+                      
                     </button>
                    
-                    <input
+                   
+                    {/* <input
                     type="file"
                     name="Submit"           
                     className=" bg-green-800 hover:bg-gray-600 text-white px-2 py-2 rounded-lg "
                     onChange={(e) => {                   
                       submit(pideas._id,e.target.files[0])
-                    }}
-                  />
+                    }}    
+                  /> */}
                   </td>
                 </tr>
               ))}
